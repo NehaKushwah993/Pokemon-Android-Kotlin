@@ -1,16 +1,15 @@
 package com.nehak.pokemonlist.ui
 
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.NoMatchingViewException
 import androidx.test.espresso.ViewAssertion
 import androidx.test.espresso.ViewInteraction
 import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.withId
-import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.nehak.pokemonlist.R
+import com.nehak.pokemonlist.ui.pokemonList.PokemonListActivity
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
