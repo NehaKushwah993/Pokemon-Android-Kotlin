@@ -1,28 +1,19 @@
-package com.nehak.pokemonlist
+package com.nehak.pokemonlist.ui
 
-import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.NoMatchingViewException
 import androidx.test.espresso.ViewAssertion
 import androidx.test.espresso.ViewInteraction
 import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.matcher.ViewMatchers
-import androidx.test.espresso.matcher.ViewMatchers.*
+import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
-import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
-
+import com.nehak.pokemonlist.R
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-
-import org.junit.Assert.*
-import org.junit.Rule
-import java.util.regex.Pattern.matches
-import androidx.test.espresso.NoMatchingViewException
-
-import androidx.test.espresso.Espresso.onView
-
-
-
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -31,12 +22,6 @@ import androidx.test.espresso.Espresso.onView
  */
 @RunWith(AndroidJUnit4::class)
 class PokemonListActivityTest {
-
-    fun ViewInteraction.isGone() = getViewAssertion(ViewMatchers.Visibility.GONE)
-
-    fun ViewInteraction.isVisible() = getViewAssertion(ViewMatchers.Visibility.VISIBLE)
-
-    fun ViewInteraction.isInvisible() = getViewAssertion(ViewMatchers.Visibility.INVISIBLE)
 
     @get:Rule
     var activityRule: ActivityScenarioRule<PokemonListActivity> =
@@ -47,12 +32,14 @@ class PokemonListActivityTest {
     }
 
     @Test
-    fun isHelloWorldVisible() {
-        try {
-            onView(withText("Hello World!")).isVisible()
-            // View is in hierarchy
-        } catch (e: NoMatchingViewException) {
-            // View is not in hierarchy
-        }
+    fun isPokemonRecyclerViewVisible() {
+        onView(withId(R.id.rv_pokemon_list)).isVisible()
     }
+
+    fun ViewInteraction.isGone() = getViewAssertion(ViewMatchers.Visibility.GONE)
+
+    fun ViewInteraction.isVisible() = getViewAssertion(ViewMatchers.Visibility.VISIBLE)
+
+    fun ViewInteraction.isInvisible() = getViewAssertion(ViewMatchers.Visibility.INVISIBLE)
+
 }
