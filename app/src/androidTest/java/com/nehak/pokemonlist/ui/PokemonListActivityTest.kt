@@ -9,7 +9,6 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.nehak.pokemonlist.R
-import com.nehak.pokemonlist.ui.pokemonList.PokemonListActivity
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
