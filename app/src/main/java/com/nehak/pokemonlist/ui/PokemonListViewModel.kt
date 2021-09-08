@@ -22,20 +22,25 @@ import javax.inject.Inject
 @VisibleForTesting
 @HiltViewModel
 class PokemonListViewModel @Inject constructor(
-    private val pokemonRepository: PokemonRepository
+    @VisibleForTesting var pokemonRepository: PokemonRepository
 ) : ViewModel(), LifecycleObserver {
 
+    private val limit = 10
+
     // To show loading bar
+    @VisibleForTesting
     private val _isLoading = MutableStateFlow(false)
     val isLoading: StateFlow<Boolean>
         get() = _isLoading
 
     // To show error message
+    @VisibleForTesting
     private val _errorMessage: MutableStateFlow<String?> = MutableStateFlow(null)
     val errorMessage: StateFlow<String?>
         get() = _errorMessage
 
     // List to show Pokemon's
+    @VisibleForTesting
     private val _pokemonList: MutableStateFlow<List<PokemonModel>?> = MutableStateFlow(null)
     val pokemonList: Flow<List<PokemonModel>?>
         get() = _pokemonList
@@ -48,7 +53,7 @@ class PokemonListViewModel @Inject constructor(
     private fun fetchBooks() {
         viewModelScope.launch {
             pokemonRepository.fetchPokemonList(
-                limit = 10,
+                limit = limit,
                 onStart = { _isLoading.value = true },
                 onComplete = { _isLoading.value = false },
                 onError = { _errorMessage.value = it }

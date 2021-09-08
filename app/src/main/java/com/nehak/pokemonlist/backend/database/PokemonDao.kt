@@ -7,6 +7,9 @@ import androidx.room.Query
 import com.nehak.pokemonlist.backend.models.PokemonModel
 import com.nehak.pokemonlist.backend.models.pokemonDetails.PokemonDetails
 
+/**
+ * Created by Neha Kushwah on 7/9/21.
+ */
 @Dao
 interface PokemonDao {
 

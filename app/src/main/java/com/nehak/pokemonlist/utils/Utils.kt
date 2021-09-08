@@ -1,7 +1,6 @@
 package com.nehak.pokemonlist.utils
 
 import android.content.Context
-import com.nehak.pokemonlist.BuildConfig
 import java.io.IOException
 import java.nio.charset.StandardCharsets
 

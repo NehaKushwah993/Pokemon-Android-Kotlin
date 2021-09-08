@@ -15,6 +15,7 @@ import junit.framework.Assert.assertNotNull
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import java.lang.Exception
 
 /**
  * Instrumented test, which will execute on an Android device.

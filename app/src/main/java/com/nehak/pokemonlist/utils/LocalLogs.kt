@@ -5,7 +5,7 @@ import com.nehak.pokemonlist.BuildConfig
 /**
  * Created by Neha Kushwah on 8/9/21.
  */
-class LocalLog {
+class LocalLogs {
     companion object {
         fun debug(s: String) {
             if (BuildConfig.DEBUG) {
@@ -15,7 +15,7 @@ class LocalLog {
 
         fun debug(tag: String, s: String) {
             if (BuildConfig.DEBUG) {
-                print(tag + " - " + s)
+                print("$tag - $s")
             }
         }
 

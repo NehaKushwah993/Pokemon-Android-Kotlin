@@ -8,6 +8,7 @@ import com.nehak.pokemonlist.BuildConfig
 import com.nehak.pokemonlist.backend.models.pokemonList.PokemonListResponse
 import com.nehak.pokemonlist.backend.other.ApiResult
 import com.nehak.pokemonlist.backend.other.GsonRequest
+import com.nehak.pokemonlist.utils.LocalLogs
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.suspendCancellableCoroutine
 import javax.inject.Inject
@@ -30,9 +31,8 @@ class PokemonService @Inject constructor(@ApplicationContext var appContext: Con
                     continuation.resumeWith(Result.success(ApiResult.success(response)));
                 },
                 {
-                    continuation.cancel(Exception("Error in request"))
+                    continuation.resumeWith(Result.success(ApiResult.error("Error", null)));
                 })
-
             queue.add(myReq)
         }
     }

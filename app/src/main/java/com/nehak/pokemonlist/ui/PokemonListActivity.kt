@@ -4,15 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.nehak.pokemonlist.databinding.ActivityPokemonListBinding
-import com.nehak.pokemonlist.utils.LocalLog
+import com.nehak.pokemonlist.utils.LocalLogs
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -24,6 +20,7 @@ class PokemonListActivity : AppCompatActivity() {
 
     @VisibleForTesting
     lateinit var viewBinding: ActivityPokemonListBinding
+    lateinit var adapter: PokemonAdapter
     @VisibleForTesting
     lateinit var pokemonListViewModel: PokemonListViewModel;
 
@@ -34,8 +31,14 @@ class PokemonListActivity : AppCompatActivity() {
         setContentView(viewBinding.root)
 
         initViewModel()
+        initAdapter()
         addObservers();
 
+    }
+
+    private fun initAdapter() {
+        adapter = PokemonAdapter();
+        viewBinding.rvPokemonList.adapter = adapter
     }
 
     private fun initViewModel() {
@@ -47,19 +50,19 @@ class PokemonListActivity : AppCompatActivity() {
 
         lifecycleScope.launch {
             pokemonListViewModel.pokemonList.collect { pokemonList ->
-                viewBinding.tvCounts.text = pokemonList?.size.toString()
+                adapter.setPokemonList(pokemonList)
             }
         }
 
         lifecycleScope.launch {
             pokemonListViewModel.errorMessage.collect { errorMessage ->
-                LocalLog.debug("Received errorMessage $errorMessage")
+                LocalLogs.debug("Received errorMessage $errorMessage")
             }
         }
 
         lifecycleScope.launch {
             pokemonListViewModel.isLoading.collect { isLoading ->
-                LocalLog.debug("Received isLoading $isLoading")
+                LocalLogs.debug("Received isLoading $isLoading")
                 viewBinding.isLoading = isLoading
             }
         }
