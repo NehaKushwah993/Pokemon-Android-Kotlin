@@ -1,11 +1,12 @@
 package com.nehak.pokemonlist.backend.models.pokemonDetails
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
+@Entity
 data class PokemonDetails(
-    @Expose
-    var abilities: List<Ability>? = null,
 
     @SerializedName("base_experience")
     var baseExperience: Long = 0,
@@ -16,8 +17,9 @@ data class PokemonDetails(
     @Expose
     var id: Long = 0,
 
+    @PrimaryKey
     @Expose
-    var name: String? = null,
+    var name: String,
 
     @Expose
     var weight: Long = 0

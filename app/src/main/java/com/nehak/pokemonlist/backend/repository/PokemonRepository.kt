@@ -1,7 +1,14 @@
 package com.nehak.pokemonlist.backend.repository
 
+import androidx.annotation.WorkerThread
 import com.nehak.pokemonlist.backend.dataSource.PokemonRemoteDataSource
-import com.nehak.pokemonlist.backend.database.PokemonDatabase
+import com.nehak.pokemonlist.backend.database.PokemonDao
+import com.nehak.pokemonlist.backend.other.ApiResult
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.onCompletion
+import kotlinx.coroutines.flow.onStart
 import javax.inject.Inject
 
 /**
@@ -9,8 +16,31 @@ import javax.inject.Inject
  * Repository which fetches data from Remote or Local data sources (RoomDB)
  */
 class PokemonRepository @Inject constructor(
-    private val pokemonDataSource: PokemonRemoteDataSource,
-    private val pokemonDatabase: PokemonDatabase
-) {
+    var pokemonRemoteDataSource: PokemonRemoteDataSource,
+    var pokemonDao: PokemonDao
+) : BasePokemonRepository{
+
+    @WorkerThread
+    override fun fetchPokemonList(
+        limit: Int,
+        onStart: () -> Unit,
+        onComplete: () -> Unit,
+        onError: (String?) -> Unit
+    ) = flow {
+        var pokemons = pokemonDao.getPokemonList()
+        if (pokemons.isEmpty()) {
+            val response = pokemonRemoteDataSource.fetchPokemonList(limit)
+            if (response.status == ApiResult.Status.SUCCESS) {
+                pokemons = response.data!!.results!!;
+                pokemonDao.insertPokemonList(pokemons)
+                emit(pokemonDao.getPokemonList())
+            } else {
+                onError("Error")
+            }
+        } else {
+            emit(pokemonDao.getPokemonList())
+        }
+    }.onStart { onStart() }.onCompletion { onComplete() }.flowOn(Dispatchers.IO)
+
 
 }

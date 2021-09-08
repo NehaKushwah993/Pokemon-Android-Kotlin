@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PokemonList">
         <activity
-            android:name=".ui.pokemonList.PokemonListActivity"
+            android:name=".ui.PokemonListActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

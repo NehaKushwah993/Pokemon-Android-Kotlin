@@ -3,7 +3,7 @@ package com.nehak.pokemonlist.backend.models.pokemonList
 import com.google.gson.annotations.SerializedName
 import com.nehak.pokemonlist.backend.models.PokemonModel
 
-data class PokemonListModel(
+data class PokemonListResponse(
     @SerializedName("count")
     var count: Long? = null,
 
