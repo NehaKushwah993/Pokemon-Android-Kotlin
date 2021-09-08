@@ -2,6 +2,7 @@ package com.nehak.pokemonlist.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
@@ -21,8 +22,10 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class PokemonListActivity : AppCompatActivity() {
 
-    private lateinit var viewBinding: ActivityPokemonListBinding
-    private lateinit var pokemonListViewModel: PokemonListViewModel;
+    @VisibleForTesting
+    lateinit var viewBinding: ActivityPokemonListBinding
+    @VisibleForTesting
+    lateinit var pokemonListViewModel: PokemonListViewModel;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
