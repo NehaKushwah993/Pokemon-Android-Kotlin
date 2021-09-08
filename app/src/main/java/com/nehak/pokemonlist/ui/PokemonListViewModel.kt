@@ -2,11 +2,9 @@ package com.nehak.pokemonlist.ui
 
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nehak.pokemonlist.backend.models.PokemonModel
-import com.nehak.pokemonlist.backend.repository.BasePokemonRepository
 import com.nehak.pokemonlist.backend.repository.PokemonRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.InternalCoroutinesApi

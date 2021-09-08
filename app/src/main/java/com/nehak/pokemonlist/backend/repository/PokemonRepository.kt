@@ -18,17 +18,17 @@ import javax.inject.Inject
 class PokemonRepository @Inject constructor(
     var pokemonRemoteDataSource: PokemonRemoteDataSource,
     var pokemonDao: PokemonDao
-) : BasePokemonRepository{
+) {
 
     @WorkerThread
-    override fun fetchPokemonList(
+    fun fetchPokemonList(
         limit: Int,
         onStart: () -> Unit,
         onComplete: () -> Unit,
         onError: (String?) -> Unit
     ) = flow {
         var pokemons = pokemonDao.getPokemonList()
-        if (pokemons.isEmpty()) {
+        if (pokemons == null || pokemons.isEmpty()) {
             val response = pokemonRemoteDataSource.fetchPokemonList(limit)
             if (response.status == ApiResult.Status.SUCCESS) {
                 pokemons = response.data!!.results!!;
