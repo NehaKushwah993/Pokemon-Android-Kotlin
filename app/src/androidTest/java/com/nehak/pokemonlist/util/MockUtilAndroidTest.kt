@@ -5,7 +5,7 @@ import com.nehak.pokemonlist.backend.models.PokemonModel
 /**
  * Created by Neha Kushwah on 7/9/21.
  */
-object MockUtil {
+object MockUtilAndroidTest {
 
     fun mockPokemon() = PokemonModel(
         name = "Pokemon Name",

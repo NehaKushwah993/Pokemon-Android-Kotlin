@@ -28,7 +28,7 @@ class PokemonRepository @Inject constructor(
         onError: (String?) -> Unit
     ) = flow {
         var pokemons = pokemonDao.getPokemonList()
-        if (pokemons == null || pokemons.isEmpty()) {
+        if (pokemons.isEmpty()) {
             val response = pokemonRemoteDataSource.fetchPokemonList(limit)
             if (response.status == ApiResult.Status.SUCCESS) {
                 pokemons = response.data!!.results!!;
