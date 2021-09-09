@@ -1,9 +1,6 @@
 package com.nehak.pokemonlist.backend.database
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.nehak.pokemonlist.backend.models.PokemonModel
 import com.nehak.pokemonlist.backend.models.pokemonDetails.PokemonDetails
 
@@ -24,4 +21,7 @@ interface PokemonDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertPokemonInfo(pokemonInfo: PokemonDetails)
+
+    @Query("DELETE FROM PokemonModel")
+    fun deleteAll(): Int
 }

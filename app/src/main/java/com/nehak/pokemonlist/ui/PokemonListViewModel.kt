@@ -10,6 +10,7 @@ import com.nehak.pokemonlist.backend.repository.PokemonRepository
 import com.nehak.pokemonlist.utils.MAX_LIST_SIZE
 import com.nehak.pokemonlist.utils.PAGE_SIZE
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -73,8 +74,26 @@ class PokemonListViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Refetch data from server
+     */
     fun reload() {
         fetchBooks();
+    }
+
+    /**
+     * Refetch data from server after deleting them from DB
+     */
+    fun refresh() {
+        viewModelScope.launch(Dispatchers.IO) {
+            pokemonRepository.clear().also {
+                viewModelScope.launch(Dispatchers.Main) {
+                    _pokemonList.value = null
+                    currentPageNumber = 0
+                    fetchBooks();
+                }
+            }
+        }
     }
 
     fun fetchMorePokemon() {

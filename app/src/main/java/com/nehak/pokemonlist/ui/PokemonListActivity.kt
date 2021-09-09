@@ -25,6 +25,8 @@ import com.nehak.pokemonlist.utils.recyclerViewPagination.PaginationListener
 @AndroidEntryPoint
 class PokemonListActivity : AppCompatActivity() {
 
+    private var mSnackbar: Snackbar? = null
+
     @VisibleForTesting
     lateinit var viewBinding: ActivityPokemonListBinding
 
@@ -39,6 +41,7 @@ class PokemonListActivity : AppCompatActivity() {
 
         initViewModel()
         initAdapter()
+        initPullToRefresh()
         addObservers();
         addPagination()
 
@@ -56,6 +59,12 @@ class PokemonListActivity : AppCompatActivity() {
     private fun initViewModel() {
         viewModel =
             ViewModelProvider(this).get(PokemonListViewModel::class.java);
+    }
+
+    private fun initPullToRefresh() {
+        viewBinding.swipeRefreshLayout.setOnRefreshListener {
+            viewModel.refresh()
+        }
     }
 
     private fun addObservers() {
@@ -79,6 +88,11 @@ class PokemonListActivity : AppCompatActivity() {
             viewModel.isLoading.collect { isLoading ->
                 LocalLogs.debug("Received isLoading $isLoading")
                 viewBinding.isLoading = isLoading
+                if(!isLoading) {
+                    viewBinding.swipeRefreshLayout.isRefreshing = isLoading
+                }else{
+                    mSnackbar?.dismiss()
+                }
             }
         }
     }
@@ -88,17 +102,17 @@ class PokemonListActivity : AppCompatActivity() {
      */
     @VisibleForTesting
     private fun showErrorWithRetry(msg: String?) {
-        val mSnackbar: Snackbar =
+        mSnackbar =
             Snackbar.make(
                 viewBinding.root,
                 msg ?: getString(R.string.error_message),
                 Snackbar.LENGTH_INDEFINITE
             )
-        mSnackbar.setAction(getString(R.string.retry).uppercase()) {
-            mSnackbar.dismiss()
+        mSnackbar?.setAction(getString(R.string.retry).uppercase()) {
+            mSnackbar?.dismiss()
             viewModel.reload()
         }
-        mSnackbar.show()
+        mSnackbar?.show()
     }
 
     /**

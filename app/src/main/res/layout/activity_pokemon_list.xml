@@ -17,54 +17,63 @@
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.PokemonListActivity">
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <include
-            android:id="@+id/layout_error"
-            layout="@layout/layout_no_offline_data_error"
-            android:visibility="@{!isLoading &amp;&amp; (pokemonAdapter!=null &amp;&amp; pokemonAdapter.itemCount==0) ? View.VISIBLE : View.GONE}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_pokemon_list"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:adapter="@{pokemonAdapter}"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:spanCount="2"
-            tools:itemCount="10"
-            tools:listitem="@layout/adapter_row_pokemon" />
+            tools:context=".ui.PokemonListActivity">
 
-        <ProgressBar
-            android:id="@+id/progress_bar_center"
-            android:layout_width="@dimen/progress_bar_width_height"
-            android:layout_height="50dp"
-            android:indeterminate="false"
-            android:visibility="@{isLoading &amp;&amp; (pokemonAdapter==null || pokemonAdapter.itemCount==0)? View.VISIBLE : View.GONE}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <include
+                android:id="@+id/layout_error"
+                layout="@layout/layout_no_offline_data_error"
+                android:visibility="@{!isLoading &amp;&amp; (pokemonAdapter!=null &amp;&amp; pokemonAdapter.itemCount==0) ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <ProgressBar
-            android:id="@+id/progress_bar_bottom"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:indeterminate="false"
-            android:visibility="@{isLoading &amp;&amp; (pokemonAdapter!=null &amp;&amp; pokemonAdapter.itemCount!=0)? View.VISIBLE : View.GONE}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_pokemon_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:adapter="@{pokemonAdapter}"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="2"
+                tools:itemCount="10"
+                tools:listitem="@layout/adapter_row_pokemon" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <ProgressBar
+                android:id="@+id/progress_bar_center"
+                android:layout_width="@dimen/progress_bar_width_height"
+                android:layout_height="50dp"
+                android:indeterminate="false"
+                android:visibility="@{isLoading &amp;&amp; (pokemonAdapter==null || pokemonAdapter.itemCount==0)? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ProgressBar
+                android:id="@+id/progress_bar_bottom"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:indeterminate="false"
+                android:visibility="@{isLoading &amp;&amp; (pokemonAdapter!=null &amp;&amp; pokemonAdapter.itemCount!=0)? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </layout>
