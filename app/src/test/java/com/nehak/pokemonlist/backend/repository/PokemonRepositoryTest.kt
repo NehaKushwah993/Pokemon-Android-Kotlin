@@ -87,6 +87,7 @@ class PokemonRepositoryTest() {
             Mockito.`when`(pokemonDao.getPokemonListForPage(0)).thenReturn(mockPokemonList(0))
             Mockito.`when`(pokemonService.fetchPokemonList(0,10))
                 .thenReturn(ApiResult.error("Error message"))
+            
 
             val listOfPokemonList = pokemonRepository.fetchPokemonList(
                 pageNumber = 0,
