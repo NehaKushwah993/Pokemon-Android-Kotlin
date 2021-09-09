@@ -16,6 +16,9 @@ interface PokemonDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertPokemonList(pokemonList: List<PokemonModel>)
 
+    @Query("SELECT * FROM PokemonModel WHERE pageNumber = :pageNumber")
+    suspend fun getPokemonListForPage(pageNumber: Int): List<PokemonModel>
+
     @Query("SELECT * FROM PokemonModel")
     suspend fun getPokemonList(): List<PokemonModel>
 

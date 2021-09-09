@@ -37,8 +37,10 @@ class PokemonListViewModelTest {
             val limit = 5;
             val mockData = MockUtil.mockPokemonList(limit)
             `when`(pokemonDao.getPokemonList()).thenReturn(mockData)
+            `when`(pokemonDao.getPokemonListForPage(0)).thenReturn(mockData)
 
             val fetchedDataFlow = pokemonRepository.fetchPokemonList(
+                pageNumber = 0,
                 limit = limit,
                 onStart = {},
                 onComplete = {},
@@ -57,10 +59,12 @@ class PokemonListViewModelTest {
             val limit = 10;
             val mockData = MockUtil.mockPokemonList(0)
             `when`(pokemonDao.getPokemonList()).thenReturn(mockData)
-            `when`(pokemonService.fetchPokemonList(10))
+            `when`(pokemonDao.getPokemonListForPage(0)).thenReturn(mockData)
+            `when`(pokemonService.fetchPokemonList(0,10))
                 .thenReturn(ApiResult.error("Error message"))
 
             val fetchedDataFlow = pokemonRepository.fetchPokemonList(
+                pageNumber = 0,
                 limit = limit,
                 onStart = {},
                 onComplete = {},

@@ -16,12 +16,12 @@ import javax.inject.Inject
  */
 class PokemonService @Inject constructor(@ApplicationContext var appContext: Context) {
 
-    suspend fun fetchPokemonList(limit: Int): ApiResult<PokemonListResponse> {
+    suspend fun fetchPokemonList(offset: Int, limit: Int): ApiResult<PokemonListResponse> {
         return suspendCancellableCoroutine { continuation ->
             val queue = Volley.newRequestQueue(appContext)
             val myReq: GsonRequest<PokemonListResponse> = GsonRequest(
                 Request.Method.GET,
-                "$API_POKEMON_LIST?limit=$limit",
+                "$API_POKEMON_LIST?limit=$limit&offset=$offset",
                 PokemonListResponse::class.java,
                 null,
                 { response ->
@@ -33,6 +33,4 @@ class PokemonService @Inject constructor(@ApplicationContext var appContext: Con
             queue.add(myReq)
         }
     }
-
-
 }

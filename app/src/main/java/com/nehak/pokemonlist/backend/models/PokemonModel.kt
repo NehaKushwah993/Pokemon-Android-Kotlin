@@ -7,6 +7,10 @@ import java.util.*
 
 @Entity
 data class PokemonModel(
+
+    var pageNumber: Int = 0,
+    var hasNextPageUrl: Boolean = true,
+
     @PrimaryKey
     @SerializedName("name")
     var name: String,
@@ -17,10 +21,13 @@ data class PokemonModel(
     override fun equals(other: Any?): Boolean {
         if (other == null || this::class.java != other::class.java) return false;
         val that: PokemonModel = other as PokemonModel
-        return Objects.equals(name, that.name) && Objects.equals(url, that.url)
+        return Objects.equals(name, that.name) && Objects.equals(
+            pageNumber,
+            that.pageNumber
+        ) && Objects.equals(url, that.url) && Objects.equals(hasNextPageUrl, that.hasNextPageUrl)
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(name, url)
+        return Objects.hash(name, url, pageNumber, hasNextPageUrl)
     }
 }

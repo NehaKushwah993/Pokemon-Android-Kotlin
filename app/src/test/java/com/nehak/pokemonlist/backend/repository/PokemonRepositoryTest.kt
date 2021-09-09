@@ -40,9 +40,11 @@ class PokemonRepositoryTest() {
             results = mockPokemonList(11)
         )
         Mockito.`when`(pokemonDao.getPokemonList()).thenReturn(mockData.results)
-        Mockito.`when`(pokemonService.fetchPokemonList(10)).thenReturn(ApiResult.success(mockData))
+        Mockito.`when`(pokemonDao.getPokemonListForPage(0)).thenReturn(mockData.results)
+        Mockito.`when`(pokemonService.fetchPokemonList(0,10)).thenReturn(ApiResult.success(mockData))
 
         var pokemonList = pokemonRepository.fetchPokemonList(
+            pageNumber = 0,
             limit = 10,
             onStart = {},
             onComplete = {},
@@ -63,8 +65,10 @@ class PokemonRepositoryTest() {
             results = mockPokemonList(1)
         )
         Mockito.`when`(pokemonDao.getPokemonList()).thenReturn(mockData.results)
+        Mockito.`when`(pokemonDao.getPokemonListForPage(0)).thenReturn(mockData.results)
 
         var pokemonList = pokemonRepository.fetchPokemonList(
+            pageNumber = 0,
             limit = 1,
             onStart = {},
             onComplete = {},
@@ -80,10 +84,12 @@ class PokemonRepositoryTest() {
     fun `test listOfPokemon when no internet or error from service + no data on db`() =
         runBlocking {
             Mockito.`when`(pokemonDao.getPokemonList()).thenReturn(mockPokemonList(0))
-            Mockito.`when`(pokemonService.fetchPokemonList(10))
+            Mockito.`when`(pokemonDao.getPokemonListForPage(0)).thenReturn(mockPokemonList(0))
+            Mockito.`when`(pokemonService.fetchPokemonList(0,10))
                 .thenReturn(ApiResult.error("Error message"))
 
-            var listOfPokemonList = pokemonRepository.fetchPokemonList(
+            val listOfPokemonList = pokemonRepository.fetchPokemonList(
+                pageNumber = 0,
                 limit = 10,
                 onStart = {},
                 onComplete = {},
@@ -103,10 +109,12 @@ class PokemonRepositoryTest() {
             results = mockPokemonList(11)
         )
         Mockito.`when`(pokemonDao.getPokemonList()).thenReturn(mockData.results)
-        Mockito.`when`(pokemonService.fetchPokemonList(10))
+        Mockito.`when`(pokemonDao.getPokemonListForPage(0)).thenReturn(mockData.results)
+        Mockito.`when`(pokemonService.fetchPokemonList(0,10))
             .thenReturn(ApiResult.error("Error message"))
 
         var pokemonList = pokemonRepository.fetchPokemonList(
+            pageNumber = 0,
             limit = 10,
             onStart = {},
             onComplete = {},

@@ -42,15 +42,29 @@
             tools:listitem="@layout/adapter_row_pokemon" />
 
         <ProgressBar
-            android:id="@+id/progress_bar"
-            android:layout_width="50dp"
+            android:id="@+id/progress_bar_center"
+            android:layout_width="@dimen/progress_bar_width_height"
             android:layout_height="50dp"
-            android:visibility="@{isLoading? View.VISIBLE : View.GONE}"
+            android:indeterminate="false"
+            android:visibility="@{isLoading &amp;&amp; (pokemonAdapter==null || pokemonAdapter.itemCount==0)? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ProgressBar
+            android:id="@+id/progress_bar_bottom"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:indeterminate="false"
+            android:visibility="@{isLoading &amp;&amp; (pokemonAdapter!=null &amp;&amp; pokemonAdapter.itemCount!=0)? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

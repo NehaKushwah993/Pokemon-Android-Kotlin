@@ -1,7 +1,10 @@
 package com.nehak.pokemonlist.utils.bindingAdapters
 
 import android.text.TextUtils
+import android.view.View
 import android.widget.ImageView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.updateLayoutParams
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.GenericTransitionOptions
 import com.bumptech.glide.Glide

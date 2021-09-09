@@ -22,7 +22,6 @@
             android:layout_height="0dp"
             android:contentDescription="@string/pokemon"
             android:src="@drawable/ic_pokemon_bg"
-            android:alpha="0.6"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -37,8 +36,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            bind:imageUrl="@{pokemon.url}"
-            tools:src="@drawable/ic_pokemon" />
+            bind:imageUrl="@{pokemon.url}" />
 
         <TextView
             android:id="@+id/tv_title"
