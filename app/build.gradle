@@ -105,12 +105,13 @@ dependencies {
     // optional - Test helpers
     testImplementation("androidx.room:room-testing:$room_version")
 
-
     //Mockito for testing
     testImplementation "org.mockito:mockito-inline:$mockito_version"
     testImplementation "org.mockito:mockito-core:$mockito_version"
 
-
+    // Glide for showing Image By URLs
+    implementation "com.github.bumptech.glide:glide:$glide_version"
+    annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
 }
 
 // Allow references to generated code

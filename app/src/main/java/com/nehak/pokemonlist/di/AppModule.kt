@@ -45,4 +45,5 @@ object AppModule {
     fun providePokemonDao(appDatabase: PokemonDatabase): PokemonDao {
         return appDatabase.pokemonDao()
     }
+
 }
