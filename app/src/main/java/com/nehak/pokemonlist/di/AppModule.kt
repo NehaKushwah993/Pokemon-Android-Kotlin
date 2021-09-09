@@ -1,11 +1,9 @@
 package com.nehak.pokemonlist.di
 
-import android.app.Application
 import android.content.Context
 import androidx.room.Room
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.nehak.pokemonlist.BuildConfig
 import com.nehak.pokemonlist.backend.database.PokemonDao
 import com.nehak.pokemonlist.backend.database.PokemonDatabase
 import dagger.Module

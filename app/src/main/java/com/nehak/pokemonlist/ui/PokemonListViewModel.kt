@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import com.nehak.pokemonlist.backend.models.PokemonModel
 import com.nehak.pokemonlist.backend.repository.PokemonRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -28,19 +27,18 @@ class PokemonListViewModel @Inject constructor(
     private val limit = 10
 
     // To show loading bar
-    @VisibleForTesting
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     private val _isLoading = MutableStateFlow(false)
     val isLoading: StateFlow<Boolean>
         get() = _isLoading
 
     // To show error message
-    @VisibleForTesting
     private val _errorMessage: MutableStateFlow<String?> = MutableStateFlow(null)
     val errorMessage: StateFlow<String?>
         get() = _errorMessage
 
     // List to show Pokemon's
-    @VisibleForTesting
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     private val _pokemonList: MutableStateFlow<List<PokemonModel>?> = MutableStateFlow(null)
     val pokemonList: Flow<List<PokemonModel>?>
         get() = _pokemonList
@@ -49,17 +47,44 @@ class PokemonListViewModel @Inject constructor(
         fetchBooks()
     }
 
-    @OptIn(InternalCoroutinesApi::class)
     private fun fetchBooks() {
         viewModelScope.launch {
             pokemonRepository.fetchPokemonList(
                 limit = limit,
-                onStart = { _isLoading.value = true },
-                onComplete = { _isLoading.value = false },
-                onError = { _errorMessage.value = it }
+                onStart = {
+                    _isLoading.value = true
+                    _errorMessage.value = null
+                },
+                onComplete = {
+                    _isLoading.value = false
+                },
+                onError = {
+                    _errorMessage.value = it
+                }
             ).collect {
                 _pokemonList.emit(it);
             }
+        }
+    }
+
+    fun reload() {
+        fetchBooks();
+    }
+
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    fun setErrorMessage(msg: String?) {
+        _errorMessage.value = msg
+    }
+
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    fun setPokemonList(pokemonList: List<PokemonModel>?) {
+        _pokemonList.value = pokemonList
+    }
+
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    fun clearPokemonList() {
+        viewModelScope.launch {
+            _pokemonList.emit(null);
         }
     }
 

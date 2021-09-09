@@ -35,7 +35,7 @@ class PokemonRepository @Inject constructor(
                 pokemonDao.insertPokemonList(pokemons)
                 emit(pokemonDao.getPokemonList())
             } else {
-                onError("Error")
+                onError("Unable to fetch data! Please retry!")
             }
         } else {
             emit(pokemonDao.getPokemonList())

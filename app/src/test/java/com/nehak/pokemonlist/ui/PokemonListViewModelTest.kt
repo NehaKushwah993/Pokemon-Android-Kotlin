@@ -22,10 +22,9 @@ import org.mockito.Mockito.mock
  */
 class PokemonListViewModelTest {
 
-    private lateinit var viewModel: PokemonListViewModel;
     private lateinit var pokemonRepository: PokemonRepository
     private var pokemonDao: PokemonDao = mock(PokemonDao::class.java)
-    private var pokemonService: PokemonService = Mockito.mock(PokemonService::class.java)
+    private var pokemonService: PokemonService = mock(PokemonService::class.java)
 
     @Before
     fun setup() {
@@ -58,8 +57,8 @@ class PokemonListViewModelTest {
             val limit = 10;
             val mockData = MockUtil.mockPokemonList(0)
             `when`(pokemonDao.getPokemonList()).thenReturn(mockData)
-            Mockito.`when`(pokemonService.fetchPokemonList(10))
-                .thenReturn(ApiResult.error("Error message", null))
+            `when`(pokemonService.fetchPokemonList(10))
+                .thenReturn(ApiResult.error("Error message"))
 
             val fetchedDataFlow = pokemonRepository.fetchPokemonList(
                 limit = limit,

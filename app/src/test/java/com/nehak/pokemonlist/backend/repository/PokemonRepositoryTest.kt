@@ -2,14 +2,11 @@ package com.nehak.pokemonlist.backend.repository
 
 import com.nehak.pokemonlist.backend.dataSource.PokemonRemoteDataSource
 import com.nehak.pokemonlist.backend.database.PokemonDao
-import com.nehak.pokemonlist.backend.models.PokemonModel
 import com.nehak.pokemonlist.backend.models.pokemonList.PokemonListResponse
 import com.nehak.pokemonlist.backend.network.PokemonService
 import com.nehak.pokemonlist.backend.other.ApiResult
 import com.nehak.pokemonlist.ui.PokemonListViewModel
-import com.nehak.pokemonlist.util.MockUtil
 import com.nehak.pokemonlist.util.MockUtil.mockPokemonList
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking
@@ -18,7 +15,6 @@ import org.junit.Before
 import org.junit.Test
 import org.mockito.Mockito
 import org.mockito.Mockito.mock
-import kotlin.time.toDuration
 
 /**
  * Created by Neha Kushwah on 8/9/21.
@@ -26,10 +22,9 @@ import kotlin.time.toDuration
  */
 class PokemonRepositoryTest() {
 
-    private lateinit var viewModel: PokemonListViewModel;
     private lateinit var pokemonRepository: PokemonRepository
-    private var pokemonService: PokemonService = Mockito.mock(PokemonService::class.java)
-    private var pokemonDao: PokemonDao = Mockito.mock(PokemonDao::class.java)
+    private var pokemonService: PokemonService = mock(PokemonService::class.java)
+    private var pokemonDao: PokemonDao = mock(PokemonDao::class.java)
 
     @Before
     fun setup() {
@@ -84,9 +79,9 @@ class PokemonRepositoryTest() {
     @Test
     fun `test listOfPokemon when no internet or error from service + no data on db`() =
         runBlocking {
-            Mockito.`when`(pokemonDao.getPokemonList()).thenReturn(MockUtil.mockPokemonList(0))
+            Mockito.`when`(pokemonDao.getPokemonList()).thenReturn(mockPokemonList(0))
             Mockito.`when`(pokemonService.fetchPokemonList(10))
-                .thenReturn(ApiResult.error("Error message", null))
+                .thenReturn(ApiResult.error("Error message"))
 
             var listOfPokemonList = pokemonRepository.fetchPokemonList(
                 limit = 10,
@@ -109,7 +104,7 @@ class PokemonRepositoryTest() {
         )
         Mockito.`when`(pokemonDao.getPokemonList()).thenReturn(mockData.results)
         Mockito.`when`(pokemonService.fetchPokemonList(10))
-            .thenReturn(ApiResult.error("Error message", null))
+            .thenReturn(ApiResult.error("Error message"))
 
         var pokemonList = pokemonRepository.fetchPokemonList(
             limit = 10,

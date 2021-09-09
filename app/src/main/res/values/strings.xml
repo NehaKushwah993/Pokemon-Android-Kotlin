@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">PokemonList</string>
     <string name="pokemon">Pokemon</string>
+    <string name="error_message">Unable to fetch data! Please retry!</string>
+    <string name="retry">retry</string>
+    <string name="no_data_error">Oops! No Pokemon!\n<br />Keep calm, light a fire and click on <b>Retry.</b></string>
 </resources>

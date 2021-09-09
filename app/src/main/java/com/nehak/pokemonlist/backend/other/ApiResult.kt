@@ -9,8 +9,8 @@ data class ApiResult<out T>(val status: Status, val data: T?, val message: Strin
             return ApiResult(Status.SUCCESS, data, null)
         }
 
-        fun <T> error(msg: String, data: T?): ApiResult<T> {
-            return ApiResult(Status.ERROR, data, msg)
+        fun <T> error(msg: String): ApiResult<T> {
+            return ApiResult(Status.ERROR, null, msg)
         }
     }
 

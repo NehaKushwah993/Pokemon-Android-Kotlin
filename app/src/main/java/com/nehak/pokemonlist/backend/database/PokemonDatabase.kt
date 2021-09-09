@@ -2,7 +2,6 @@ package com.nehak.pokemonlist.backend.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import androidx.room.TypeConverters
 import com.nehak.pokemonlist.backend.models.PokemonModel
 import com.nehak.pokemonlist.backend.models.pokemonDetails.PokemonDetails
 

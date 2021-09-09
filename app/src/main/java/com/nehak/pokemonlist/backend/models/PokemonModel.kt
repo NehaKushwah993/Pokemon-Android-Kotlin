@@ -15,7 +15,6 @@ data class PokemonModel(
     var url: String? = null
 ) {
     override fun equals(other: Any?): Boolean {
-        if (this == other) return true;
         if (other == null || this::class.java != other::class.java) return false;
         val that: PokemonModel = other as PokemonModel
         return Objects.equals(name, that.name) && Objects.equals(url, that.url)
