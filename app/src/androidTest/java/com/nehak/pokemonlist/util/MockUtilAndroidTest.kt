@@ -1,6 +1,7 @@
 package com.nehak.pokemonlist.util
 
 import com.nehak.pokemonlist.backend.models.PokemonModel
+import com.nehak.pokemonlist.backend.models.pokemonDetails.PokemonDetails
 
 /**
  * Created by Neha Kushwah on 7/9/21.
@@ -20,4 +21,11 @@ object MockUtilAndroidTest {
         return mockModels;
     }
 
+    fun mockPokemonDetail() = PokemonDetails(
+        id = 111,
+        name = "Pokemon Name",
+        height = 233,
+        weight = 12,
+        baseExperience = 14
+    )
 }

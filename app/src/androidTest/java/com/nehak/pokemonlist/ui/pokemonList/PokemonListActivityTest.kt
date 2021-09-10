@@ -1,4 +1,4 @@
-package com.nehak.pokemonlist.ui
+package com.nehak.pokemonlist.ui.pokemonList
 
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.ViewAssertion

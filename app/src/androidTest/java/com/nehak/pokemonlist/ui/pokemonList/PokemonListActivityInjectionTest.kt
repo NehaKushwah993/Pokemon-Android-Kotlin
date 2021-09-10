@@ -1,4 +1,4 @@
-package com.nehak.pokemonlist.ui
+package com.nehak.pokemonlist.ui.pokemonList
 
 import androidx.lifecycle.Lifecycle
 import androidx.test.core.app.ActivityScenario

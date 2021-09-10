@@ -1,6 +1,7 @@
 package com.nehak.pokemonlist.util
 
 import com.nehak.pokemonlist.backend.models.PokemonModel
+import com.nehak.pokemonlist.backend.models.pokemonDetails.PokemonDetails
 
 /**
  * Created by Neha Kushwah on 7/9/21.
@@ -8,7 +9,7 @@ import com.nehak.pokemonlist.backend.models.PokemonModel
 object MockUtil {
 
     fun mockPokemon() = PokemonModel(
-        name = "Pokemon Name",
+        name = "pikachu",
         url = "https://pokeapi.co/api/v2/pokemon/45/"
     )
 
@@ -19,5 +20,13 @@ object MockUtil {
         }
         return mockModels;
     }
+
+    fun mockPokemonDetail() = PokemonDetails(
+        id = 25,
+        name = "pikachu",
+        height = 4,
+        weight = 60,
+        baseExperience = 112
+    )
 
 }

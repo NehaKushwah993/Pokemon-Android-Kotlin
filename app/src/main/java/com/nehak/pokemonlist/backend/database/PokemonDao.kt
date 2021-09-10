@@ -19,9 +19,12 @@ interface PokemonDao {
     @Query("SELECT * FROM PokemonModel")
     suspend fun getPokemonList(): List<PokemonModel>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertPokemonInfo(pokemonInfo: PokemonDetails)
-
     @Query("DELETE FROM PokemonModel")
     fun deleteAll(): Int
+
+    @Query("SELECT * FROM PokemonDetails WHERE name = :name_")
+    suspend fun getPokemonDetails(name_: String): PokemonDetails?
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertPokemonDetails(pokemonDetails: PokemonDetails)
 }

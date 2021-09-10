@@ -1,4 +1,4 @@
-package com.nehak.pokemonlist.ui
+package com.nehak.pokemonlist.ui.pokemonList
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,13 +7,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.nehak.pokemonlist.backend.models.PokemonModel
 import com.nehak.pokemonlist.databinding.AdapterRowPokemonBinding
 import com.nehak.pokemonlist.utils.diffUtil.DiffCallBackPokemonModel
-import com.nehak.pokemonlist.utils.interfaces.OnItemClickListener
+import com.nehak.pokemonlist.utils.interfaces.OnPokemonClickListener
 import kotlin.collections.ArrayList
 
 class PokemonAdapter() : RecyclerView.Adapter<PokemonAdapter.PokemonViewHolder>() {
 
     val pokemonList: ArrayList<PokemonModel> = ArrayList()
-    var onItemClickListener: OnItemClickListener? = null
+    var onPokemonClickListener: OnPokemonClickListener? = null
 
     fun setPokemonList(newPokemonList: List<PokemonModel>?) {
         val diffCallBackPokemonModel =
@@ -44,7 +44,7 @@ class PokemonAdapter() : RecyclerView.Adapter<PokemonAdapter.PokemonViewHolder>(
             executePendingBindings()
         }
         holder.binding.root.setOnClickListener {
-            onItemClickListener?.onItemClick(position)
+            onPokemonClickListener?.onPokemonClick(position, pokemonList[position])
         }
     }
 

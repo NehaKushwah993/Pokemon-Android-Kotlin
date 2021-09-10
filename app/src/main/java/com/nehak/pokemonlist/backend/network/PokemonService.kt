@@ -3,6 +3,7 @@ package com.nehak.pokemonlist.backend.network
 import android.content.Context
 import com.android.volley.Request
 import com.android.volley.toolbox.Volley
+import com.nehak.pokemonlist.backend.models.pokemonDetails.PokemonDetails
 import com.nehak.pokemonlist.backend.models.pokemonList.PokemonListResponse
 import com.nehak.pokemonlist.backend.other.ApiResult
 import com.nehak.pokemonlist.backend.other.GsonRequest
@@ -21,8 +22,26 @@ class PokemonService @Inject constructor(@ApplicationContext var appContext: Con
             val queue = Volley.newRequestQueue(appContext)
             val myReq: GsonRequest<PokemonListResponse> = GsonRequest(
                 Request.Method.GET,
-                "$API_POKEMON_LIST?limit=$limit&offset=$offset",
+                "$API_POKEMON?limit=$limit&offset=$offset",
                 PokemonListResponse::class.java,
+                null,
+                { response ->
+                    continuation.resumeWith(Result.success(ApiResult.success(response)));
+                },
+                {
+                    continuation.resumeWith(Result.success(ApiResult.error("Error")));
+                })
+            queue.add(myReq)
+        }
+    }
+
+    suspend fun fetchPokemonDetails(name: String): ApiResult<PokemonDetails> {
+        return suspendCancellableCoroutine { continuation ->
+            val queue = Volley.newRequestQueue(appContext)
+            val myReq: GsonRequest<PokemonDetails> = GsonRequest(
+                Request.Method.GET,
+                "$API_POKEMON/$name",
+                PokemonDetails::class.java,
                 null,
                 { response ->
                     continuation.resumeWith(Result.success(ApiResult.success(response)));

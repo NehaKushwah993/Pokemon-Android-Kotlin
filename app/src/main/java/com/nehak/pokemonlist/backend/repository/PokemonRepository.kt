@@ -3,6 +3,7 @@ package com.nehak.pokemonlist.backend.repository
 import androidx.annotation.WorkerThread
 import com.nehak.pokemonlist.backend.dataSource.PokemonRemoteDataSource
 import com.nehak.pokemonlist.backend.database.PokemonDao
+import com.nehak.pokemonlist.backend.models.pokemonDetails.PokemonDetails
 import com.nehak.pokemonlist.backend.models.pokemonList.PokemonListResponse
 import com.nehak.pokemonlist.backend.other.ApiResult
 import kotlinx.coroutines.Dispatchers
@@ -55,6 +56,29 @@ class PokemonRepository @Inject constructor(
     ) {
         pokemonDao.deleteAll()
     }
+
+    @WorkerThread
+    fun fetchPokemonDetail(
+        pokemonName: String,
+        onStart: () -> Unit,
+        onComplete: () -> Unit,
+        onError: (String?) -> Unit
+    ) = flow {
+        var pokemonDetail = pokemonDao.getPokemonDetails(pokemonName)
+        if (pokemonDetail == null) {
+            val response: ApiResult<PokemonDetails?> =
+                pokemonRemoteDataSource.fetchPokemonDetails(pokemonName);
+            if (response.status == ApiResult.Status.SUCCESS && response.data != null) {
+                // Insert it in DB, then emit results from DB
+                pokemonDao.insertPokemonDetails(response.data)
+                emit(pokemonDao.getPokemonDetails(pokemonName))
+            } else {
+                onError("Unable to fetch data! Please retry!")
+            }
+        } else {
+            emit(pokemonDetail)
+        }
+    }.onStart { onStart() }.onCompletion { onComplete() }.flowOn(Dispatchers.IO)
 
 
 }

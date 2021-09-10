@@ -1,4 +1,4 @@
-package com.nehak.pokemonlist.ui
+package com.nehak.pokemonlist.ui.pokemonList
 
 import com.nehak.pokemonlist.backend.dataSource.PokemonRemoteDataSource
 import com.nehak.pokemonlist.backend.database.PokemonDao
@@ -12,7 +12,6 @@ import kotlinx.coroutines.runBlocking
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
-import org.mockito.Mockito
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.mock
 

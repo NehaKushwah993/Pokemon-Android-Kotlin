@@ -1,8 +1,7 @@
-package com.nehak.pokemonlist.ui
+package com.nehak.pokemonlist.ui.pokemonList
 
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nehak.pokemonlist.backend.models.PokemonModel
@@ -50,10 +49,10 @@ class PokemonListViewModel @Inject constructor(
         get() = _pokemonList
 
     init {
-        fetchBooks()
+        fetchPokemons()
     }
 
-    private fun fetchBooks() {
+    private fun fetchPokemons() {
         viewModelScope.launch {
             pokemonRepository.fetchPokemonList(
                 pageNumber = currentPageNumber,
@@ -78,7 +77,7 @@ class PokemonListViewModel @Inject constructor(
      * Refetch data from server
      */
     fun reload() {
-        fetchBooks();
+        fetchPokemons();
     }
 
     /**
@@ -90,7 +89,7 @@ class PokemonListViewModel @Inject constructor(
                 viewModelScope.launch(Dispatchers.Main) {
                     _pokemonList.value = null
                     currentPageNumber = 0
-                    fetchBooks();
+                    fetchPokemons();
                 }
             }
         }
@@ -98,7 +97,7 @@ class PokemonListViewModel @Inject constructor(
 
     fun fetchMorePokemon() {
         ++currentPageNumber
-        fetchBooks()
+        fetchPokemons()
     }
 
 

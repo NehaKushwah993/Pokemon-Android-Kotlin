@@ -1,8 +1,8 @@
-package com.nehak.pokemonlist.ui
+package com.nehak.pokemonlist.ui.pokemonList
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -15,7 +15,10 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import com.google.android.material.snackbar.Snackbar
 import com.nehak.pokemonlist.R
-import com.nehak.pokemonlist.utils.interfaces.OnItemClickListener
+import com.nehak.pokemonlist.backend.models.PokemonModel
+import com.nehak.pokemonlist.ui.pokemonDetails.PokemonDetailsActivity
+import com.nehak.pokemonlist.utils.EXTRA_POKEMON
+import com.nehak.pokemonlist.utils.interfaces.OnPokemonClickListener
 import com.nehak.pokemonlist.utils.recyclerViewPagination.PaginationListener
 
 
@@ -25,7 +28,7 @@ import com.nehak.pokemonlist.utils.recyclerViewPagination.PaginationListener
 @AndroidEntryPoint
 class PokemonListActivity : AppCompatActivity() {
 
-    private var mSnackbar: Snackbar? = null
+    private var mErrorSnackBar: Snackbar? = null
 
     @VisibleForTesting
     lateinit var viewBinding: ActivityPokemonListBinding
@@ -50,8 +53,13 @@ class PokemonListActivity : AppCompatActivity() {
     private fun initAdapter() {
         val adapter = PokemonAdapter()
         viewBinding.pokemonAdapter = adapter
-        adapter.onItemClickListener = object : OnItemClickListener {
-            override fun onItemClick(pos: Int) {
+        adapter.onPokemonClickListener = object : OnPokemonClickListener {
+            override fun onPokemonClick(pos: Int, pokemonModel: PokemonModel) {
+                val intent = Intent(this@PokemonListActivity, PokemonDetailsActivity::class.java)
+                val bundle = Bundle()
+                bundle.putParcelable(EXTRA_POKEMON, pokemonModel)
+                intent.putExtras(bundle);
+                startActivity(intent)
             }
         }
     }
@@ -88,10 +96,10 @@ class PokemonListActivity : AppCompatActivity() {
             viewModel.isLoading.collect { isLoading ->
                 LocalLogs.debug("Received isLoading $isLoading")
                 viewBinding.isLoading = isLoading
-                if(!isLoading) {
+                if (!isLoading) {
                     viewBinding.swipeRefreshLayout.isRefreshing = isLoading
-                }else{
-                    mSnackbar?.dismiss()
+                } else {
+                    mErrorSnackBar?.dismiss()
                 }
             }
         }
@@ -102,17 +110,17 @@ class PokemonListActivity : AppCompatActivity() {
      */
     @VisibleForTesting
     private fun showErrorWithRetry(msg: String?) {
-        mSnackbar =
+        mErrorSnackBar =
             Snackbar.make(
                 viewBinding.root,
                 msg ?: getString(R.string.error_message),
                 Snackbar.LENGTH_INDEFINITE
             )
-        mSnackbar?.setAction(getString(R.string.retry).uppercase()) {
-            mSnackbar?.dismiss()
+        mErrorSnackBar?.setAction(getString(R.string.retry).uppercase()) {
+            mErrorSnackBar?.dismiss()
             viewModel.reload()
         }
-        mSnackbar?.show()
+        mErrorSnackBar?.show()
     }
 
     /**
@@ -129,11 +137,11 @@ class PokemonListActivity : AppCompatActivity() {
                 viewModel.fetchMorePokemon()
             }
 
-            override fun isLastPage() : Boolean{
+            override fun isLastPage(): Boolean {
                 return !viewModel.shouldLoadForNextPage()
             }
 
-            override fun isLoading() : Boolean{
+            override fun isLoading(): Boolean {
                 return viewModel.isLoading.value
             }
         })
