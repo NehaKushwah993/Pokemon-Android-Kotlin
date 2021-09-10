@@ -27,4 +27,8 @@ interface PokemonDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertPokemonDetails(pokemonDetails: PokemonDetails)
+
+    @Query("SELECT * FROM PokemonModel WHERE name LIKE '%' || :name_ || '%'")
+    suspend fun searchPokemonByName(name_: String): List<PokemonModel>
+
 }

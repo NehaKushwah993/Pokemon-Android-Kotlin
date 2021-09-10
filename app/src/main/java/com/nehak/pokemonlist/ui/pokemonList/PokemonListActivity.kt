@@ -17,6 +17,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.nehak.pokemonlist.R
 import com.nehak.pokemonlist.backend.models.PokemonModel
 import com.nehak.pokemonlist.ui.pokemonDetails.PokemonDetailsActivity
+import com.nehak.pokemonlist.ui.pokemonSearch.PokemonSearchActivity
 import com.nehak.pokemonlist.utils.EXTRA_POKEMON
 import com.nehak.pokemonlist.utils.interfaces.OnPokemonClickListener
 import com.nehak.pokemonlist.utils.recyclerViewPagination.PaginationListener
@@ -47,7 +48,16 @@ class PokemonListActivity : AppCompatActivity() {
         initPullToRefresh()
         addObservers();
         addPagination()
+        addClickListeners()
 
+    }
+
+    private fun addClickListeners() {
+
+        viewBinding.search.setOnClickListener {
+            val intent = Intent(this@PokemonListActivity, PokemonSearchActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun initAdapter() {

@@ -11,7 +11,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.PokemonList">
+        android:theme="@style/Theme.PokemonList"
+        android:windowSoftInputMode="adjustPan">
         <activity
             android:name=".ui.pokemonList.PokemonListActivity"
             android:exported="true">
@@ -22,6 +23,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.pokemonDetails.PokemonDetailsActivity" />
+        <activity android:name=".ui.pokemonSearch.PokemonSearchActivity" />
     </application>
 
 </manifest>

@@ -45,7 +45,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_number"
-            bind:imageUrl="@{pokemon.url}"
+            bind:loadImageByPokemonId="@{pokemon.id}"
             tools:src="@mipmap/ic_launcher" />
 
         <TextView
