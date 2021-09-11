@@ -41,7 +41,8 @@
 
             <include
                 android:id="@+id/layout_error"
-                layout="@layout/layout_no_offline_data_error"
+                layout="@layout/layout_error"
+                app:message="@{@string/no_pokemon_and_retry_error}"
                 android:visibility="@{!isLoading &amp;&amp; (pokemonAdapter!=null &amp;&amp; pokemonAdapter.itemCount==0) ? View.VISIBLE : View.GONE}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

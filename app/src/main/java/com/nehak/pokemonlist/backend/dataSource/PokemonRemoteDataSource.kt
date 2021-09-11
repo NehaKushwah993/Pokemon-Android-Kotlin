@@ -13,7 +13,7 @@ import javax.inject.Inject
  */
 class PokemonRemoteDataSource @Inject constructor(var pokemonService: PokemonService) {
     suspend fun fetchPokemonList(pageNumber: Int, limit: Int): ApiResult<PokemonListResponse?> {
-        return pokemonService.fetchPokemonList(null, pageNumber * limit, limit);
+        return pokemonService.fetchPokemonList(pageNumber * limit, limit);
     }
 
     suspend fun fetchPokemonDetails(pokemonName:String): ApiResult<PokemonDetails?> {

@@ -13,6 +13,11 @@ object MockUtil {
         url = "https://pokeapi.co/api/v2/pokemon/45/"
     )
 
+    fun mockPokemonByName(name: String) = PokemonModel(
+        name = name,
+        url = "https://pokeapi.co/api/v2/pokemon/45/"
+    )
+
     fun mockPokemonList(size: Int): ArrayList<PokemonModel> {
         var mockModels = ArrayList<PokemonModel>()
         for (i in 1..size) {

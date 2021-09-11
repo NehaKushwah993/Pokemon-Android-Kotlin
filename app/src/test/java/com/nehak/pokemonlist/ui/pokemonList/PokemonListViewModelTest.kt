@@ -59,7 +59,7 @@ class PokemonListViewModelTest {
             val mockData = MockUtil.mockPokemonList(0)
             `when`(pokemonDao.getPokemonList()).thenReturn(mockData)
             `when`(pokemonDao.getPokemonListForPage(0)).thenReturn(mockData)
-            `when`(pokemonService.fetchPokemonList(0,10))
+            `when`(pokemonService.fetchPokemonList(0, 10))
                 .thenReturn(ApiResult.error("Error message"))
 
             val fetchedDataFlow = pokemonRepository.fetchPokemonList(
@@ -71,8 +71,8 @@ class PokemonListViewModelTest {
             ).toList()
 
             Assert.assertNotNull("fetchedDataFlow = ", fetchedDataFlow)
-            Assert.assertEquals(fetchedDataFlow.size, 0)
-            Assert.assertNotEquals(fetchedDataFlow.size, 1)
+            Assert.assertEquals(0, fetchedDataFlow.size)
+            Assert.assertNotEquals(1, fetchedDataFlow.size)
 
         }
 

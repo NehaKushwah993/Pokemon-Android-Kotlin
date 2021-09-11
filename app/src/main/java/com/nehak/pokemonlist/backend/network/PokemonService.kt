@@ -19,16 +19,10 @@ import javax.inject.Inject
 class PokemonService @Inject constructor(@ApplicationContext var appContext: Context) {
 
     suspend fun fetchPokemonList(
-        name: String?,
         offset: Int,
         limit: Int
     ): ApiResult<PokemonListResponse> {
-        val url: String;
-        if (name.isNullOrBlank()) {
-            url = "$API_POKEMON?limit=$limit&offset=$offset";
-        } else {
-            url = "$API_POKEMON?search=$name&limit=$limit&offset=$offset";
-        }
+        val url = "$API_POKEMON?limit=$limit&offset=$offset";
 
         return suspendCancellableCoroutine { continuation ->
             val queue = Volley.newRequestQueue(appContext)

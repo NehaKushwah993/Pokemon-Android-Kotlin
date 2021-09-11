@@ -1,4 +1,4 @@
-package com.nehak.pokemonlist.ui.pokemonList
+package com.nehak.pokemonlist.ui.pokemonSearch
 
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.ViewAssertion
@@ -8,8 +8,7 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import com.nehak.pokemonlist.R
-import com.nehak.pokemonlist.backend.models.PokemonModel
-import com.nehak.pokemonlist.util.MockUtilAndroidTest.mockPokemonList
+import org.hamcrest.Matchers.not
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -23,12 +22,12 @@ import org.junit.runner.RunWith
  */
 @RunWith(AndroidJUnit4::class)
 @LargeTest
-class PokemonListActivityTest {
+class PokemonSearchActivityTest {
 
     @get:Rule
-    var activityRule: ActivityScenarioRule<PokemonListActivity> =
-        ActivityScenarioRule(PokemonListActivity::class.java)
-    lateinit var activity: PokemonListActivity;
+    var activityRule: ActivityScenarioRule<PokemonSearchActivity> =
+        ActivityScenarioRule(PokemonSearchActivity::class.java)
+    lateinit var activity: PokemonSearchActivity;
 
     @Before
     fun init() {
@@ -50,24 +49,15 @@ class PokemonListActivityTest {
     @Test
     fun isPokemonRecyclerViewVisible() {
         onView(withId(R.id.rv_pokemon_list)).check(matches(isDisplayed()))
-    }
-
-    @Test
-    fun checkErrorSnackBarVisibility() {
-        activity.viewModel.setErrorMessage("Error")
-        onView(withText("Error")).check(matches(isDisplayed()))
+        onView(withId(R.id.layout_no_pokemon_found)).check(matches(not(isDisplayed())))
     }
 
     @Test
     fun checkCenterErrorViewVisibility() {
-        activity.viewModel.setErrorMessage("Error")
-        activity.viewModel.clearPokemonList()
-        isVisible()
-
-        activity.viewModel.setPokemonList(ArrayList())
-        isVisible()
-
-        activity.viewModel.setPokemonList(mockPokemonList(1))
-        isGone()
+        activity.viewBinding.foundNoData = true
+        onView(withId(R.id.layout_no_pokemon_found)).check(matches(isDisplayed()))
+        activity.viewBinding.foundNoData = true
+        onView(withId(R.id.layout_no_pokemon_found)).check(matches(not(isDisplayed())))
     }
+
 }

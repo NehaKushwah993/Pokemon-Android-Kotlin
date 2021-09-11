@@ -100,7 +100,7 @@ class PokemonRepository @Inject constructor(
             return@flow
         }
 
-        var pokemons = pokemonDao.searchPokemonByName(pokemonName)
+        val pokemons = pokemonDao.searchPokemonByName(pokemonName)
         // Emit the pokemon added already in db
         emit(pokemons)
 
