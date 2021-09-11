@@ -8,19 +8,21 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
-import com.nehak.pokemonlist.databinding.ActivityPokemonListBinding
-import com.nehak.pokemonlist.utils.LocalLogs
-import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.nehak.pokemonlist.R
 import com.nehak.pokemonlist.backend.models.PokemonModel
+import com.nehak.pokemonlist.databinding.ActivityPokemonListBinding
 import com.nehak.pokemonlist.ui.pokemonDetails.PokemonDetailsActivity
 import com.nehak.pokemonlist.ui.pokemonSearch.PokemonSearchActivity
 import com.nehak.pokemonlist.utils.EXTRA_POKEMON
+import com.nehak.pokemonlist.utils.LocalLogs
 import com.nehak.pokemonlist.utils.interfaces.OnPokemonClickListener
 import com.nehak.pokemonlist.utils.recyclerViewPagination.PaginationListener
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 
 /**
@@ -54,7 +56,7 @@ class PokemonListActivity : AppCompatActivity() {
 
     private fun addClickListeners() {
 
-        viewBinding.search.setOnClickListener {
+        viewBinding.fabSearch.setOnClickListener {
             val intent = Intent(this@PokemonListActivity, PokemonSearchActivity::class.java)
             startActivity(intent)
         }

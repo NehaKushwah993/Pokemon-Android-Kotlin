@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -9,50 +11,128 @@
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:bind="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/iv_pokemon_bg"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_view"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:contentDescription="@string/pokemon"
-            android:src="@drawable/ic_pokemon_bg"
-            app:layout_constraintDimensionRatio="1:1"
+            android:foreground="?attr/selectableItemBackground"
+            app:cardBackgroundColor="@color/background_color_card"
+            app:cardCornerRadius="@dimen/corner_radius_xlarge"
+            app:cardElevation="@dimen/elevation_default"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintDimensionRatio="H,3:2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/iv_pokemon"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:contentDescription="@string/pokemon"
-            app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            bind:loadImageByPokemonId="@{pokemon.id}" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/tv_title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_half"
-            android:maxLines="1"
-            android:text="@{pokemon.name}"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textSize="@dimen/text_medium"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_pokemon"
-            tools:text="Pokemon\nName" />
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline_left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent=".08" />
 
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline_right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="1.0" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline_top"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.1" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline_bottom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent=".9" />
+
+                <ImageView
+                    android:id="@+id/ivMainBg"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:contentDescription="@string/pokemon"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/iv_pokemon_bg"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:contentDescription="@string/pokemon"
+                    android:scrollX="-30dp"
+                    android:scrollY="-30dp"
+                    android:src="@drawable/ic_pokeball_black_and_white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintEnd_toEndOf="@id/guideline_right"
+                    app:layout_constraintTop_toBottomOf="@+id/guideline_top" />
+
+                <ImageView
+                    android:id="@+id/iv_pokemon"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:contentDescription="@string/pokemon"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_pokemon_bg"
+                    app:layout_constraintEnd_toEndOf="@id/iv_pokemon_bg"
+                    app:layout_constraintStart_toStartOf="@id/iv_pokemon_bg"
+                    app:layout_constraintTop_toTopOf="@id/iv_pokemon_bg"
+                    app:loadImageByPokemonId="@{pokemon.id}"
+                    app:paletteCard="@{ivMainBg}"
+                    tools:src="@drawable/ic_pokeball" />
+
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:text="@{pokemon.capitaliseName}"
+                    android:textColor="@color/text_color_primary"
+                    android:textSize="@dimen/text_normal"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/guideline_left"
+                    app:layout_constraintTop_toTopOf="@id/guideline_top"
+                    tools:text="Pokemon\nName" />
+
+                <TextView
+                    android:id="@+id/tv_id"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_half"
+                    android:alpha="0.4"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:text="@{`#`+pokemon.id}"
+                    android:textColor="@color/text_color_primary"
+                    android:textSize="@dimen/text_header_banner"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@id/guideline_bottom"
+                    app:layout_constraintEnd_toStartOf="@+id/iv_pokemon"
+                    app:layout_constraintStart_toStartOf="@id/guideline_left"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_title"
+                    app:layout_constraintVertical_bias="1"
+                    tools:text="£555" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

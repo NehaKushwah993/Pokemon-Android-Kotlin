@@ -1,6 +1,9 @@
 package com.nehak.pokemonlist.backend.database
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import com.nehak.pokemonlist.backend.models.PokemonModel
 import com.nehak.pokemonlist.backend.models.pokemonDetails.PokemonDetails
 

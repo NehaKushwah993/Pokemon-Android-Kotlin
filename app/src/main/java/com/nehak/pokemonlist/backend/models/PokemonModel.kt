@@ -66,4 +66,8 @@ data class PokemonModel(
             return arrayOfNulls(size)
         }
     }
+
+    fun capitaliseName(): String {
+        return name.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
+    }
 }

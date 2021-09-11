@@ -25,37 +25,32 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/drawable_gradient"
         tools:context=".ui.pokemonList.PokemonListActivity">
-
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:src="@drawable/drawable_gradient"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.SearchView
             android:id="@+id/search"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
+            style="@style/ToolBar.SearchView"
+            android:theme="@style/ToolBar.SearchView"
             android:layout_height="wrap_content"
-            android:theme="@style/AppSearchView"
             app:iconifiedByDefault="false"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:queryHint="Search Pokemon by Name" />
+            app:queryHint="@string/search_hint" />
 
         <include
             android:id="@+id/layout_no_pokemon_found"
             layout="@layout/layout_error"
-            app:message="@{@string/no_pokemon_and_search_error}"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:visibility="@{foundNoData? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/search"
+            app:message="@{@string/no_pokemon_and_search_error}" />
 
 
         <androidx.recyclerview.widget.RecyclerView

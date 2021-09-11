@@ -36,7 +36,7 @@
             android:lineSpacingExtra="@dimen/spacing_quarter"
             android:text="@{message}"
             android:textAlignment="center"
-            android:textColor="@color/tex_color_grey"
+            android:textColor="@color/text_color_secondary"
             android:textSize="@dimen/text_normal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

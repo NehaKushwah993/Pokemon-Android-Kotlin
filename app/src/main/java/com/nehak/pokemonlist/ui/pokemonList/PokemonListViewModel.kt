@@ -87,12 +87,16 @@ class PokemonListViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             pokemonRepository.clear().also {
                 viewModelScope.launch(Dispatchers.Main) {
-                    _pokemonList.value = null
-                    currentPageNumber = 0
+                    resetVariables()
                     fetchPokemons();
                 }
             }
         }
+    }
+
+    private fun resetVariables() {
+        _pokemonList.value = null
+        currentPageNumber = 0
     }
 
     fun fetchMorePokemon() {

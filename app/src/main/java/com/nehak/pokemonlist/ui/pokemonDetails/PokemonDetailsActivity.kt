@@ -1,11 +1,14 @@
 package com.nehak.pokemonlist.ui.pokemonDetails
 
+import android.graphics.Color
 import android.os.Bundle
 import android.os.Parcelable
 import android.view.LayoutInflater
 import androidx.activity.viewModels
+import androidx.annotation.ColorInt
 import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.snackbar.Snackbar
 import com.nehak.pokemonlist.R
@@ -49,9 +52,13 @@ class PokemonDetailsActivity : AppCompatActivity() {
         viewBinding.lifecycleOwner = this;
         setContentView(viewBinding.root)
         viewBinding.pokemon = viewModel.pokemonModel
-
+//        viewBinding.toolBar.navigationIcon?.mutate()?.let {
+//            it.setTint(Color.WHITE)
+//            viewBinding.toolBar.navigationIcon = it
+//        }
         addObservers()
     }
+
 
     private fun addObservers() {
         lifecycleScope.launch {
