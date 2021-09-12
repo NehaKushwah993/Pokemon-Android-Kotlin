@@ -29,12 +29,6 @@
         android:layout_height="match_parent"
         tools:context=".ui.pokemonDetails.PokemonDetailsActivity">
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/splash_screen" />
-
         <ImageButton
             android:id="@+id/ib_back"
             android:layout_width="@dimen/icon_width_height_large"
