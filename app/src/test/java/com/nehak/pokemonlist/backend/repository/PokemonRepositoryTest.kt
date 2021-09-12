@@ -19,7 +19,7 @@ import org.mockito.Mockito.mock
  * Created by Neha Kushwah on 8/9/21.
  * Repository which provides fake data for testing.
  */
-class PokemonRepositoryTest() {
+class PokemonRepositoryTest {
 
     private lateinit var pokemonRepository: PokemonRepository
     private var pokemonService: PokemonService = mock(PokemonService::class.java)
@@ -42,13 +42,13 @@ class PokemonRepositoryTest() {
         Mockito.`when`(pokemonDao.getPokemonListForPage(0)).thenReturn(mockData.results)
         Mockito.`when`(pokemonService.fetchPokemonList(0,10)).thenReturn(ApiResult.success(mockData))
 
-        var pokemonList = pokemonRepository.fetchPokemonList(
+        val pokemonList = pokemonRepository.fetchPokemonList(
             pageNumber = 0,
             limit = 10,
             onStart = {},
             onComplete = {},
             onError = {}
-        ).first();
+        ).first()
 
         val expectItem = pokemonList[0]
         Assert.assertEquals(expectItem.name, "Pokemon Name")
@@ -66,13 +66,13 @@ class PokemonRepositoryTest() {
         Mockito.`when`(pokemonDao.getPokemonList()).thenReturn(mockData.results)
         Mockito.`when`(pokemonDao.getPokemonListForPage(0)).thenReturn(mockData.results)
 
-        var pokemonList = pokemonRepository.fetchPokemonList(
+        val pokemonList = pokemonRepository.fetchPokemonList(
             pageNumber = 0,
             limit = 1,
             onStart = {},
             onComplete = {},
             onError = {}
-        ).first();
+        ).first()
 
         val expectItem = pokemonList[0]
         Assert.assertEquals(expectItem.name, "Pokemon Name")
@@ -113,13 +113,13 @@ class PokemonRepositoryTest() {
         Mockito.`when`(pokemonService.fetchPokemonList(0,10))
             .thenReturn(ApiResult.error("Error message"))
 
-        var pokemonList = pokemonRepository.fetchPokemonList(
+        val pokemonList = pokemonRepository.fetchPokemonList(
             pageNumber = 0,
             limit = 10,
             onStart = {},
             onComplete = {},
             onError = {}
-        ).first();
+        ).first()
 
         val expectItem = pokemonList[0]
         Assert.assertEquals(expectItem.name, "Pokemon Name")

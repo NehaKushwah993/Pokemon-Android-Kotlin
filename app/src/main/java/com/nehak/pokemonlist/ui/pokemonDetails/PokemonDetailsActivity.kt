@@ -45,8 +45,8 @@ class PokemonDetailsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewBinding = ActivityPokemonDetailsBinding.inflate(LayoutInflater.from(this));
-        viewBinding.lifecycleOwner = this;
+        viewBinding = ActivityPokemonDetailsBinding.inflate(LayoutInflater.from(this))
+        viewBinding.lifecycleOwner = this
         setContentView(viewBinding.root)
         viewBinding.pokemon = viewModel.pokemonModel
         addObservers()
@@ -55,7 +55,7 @@ class PokemonDetailsActivity : AppCompatActivity() {
 
     private fun addExitClickListener() {
         viewBinding.ibBack.setOnClickListener {
-            supportFinishAfterTransition();
+            supportFinishAfterTransition()
         }
     }
 

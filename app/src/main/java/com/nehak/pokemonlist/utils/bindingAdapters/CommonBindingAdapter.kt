@@ -39,8 +39,8 @@ object CommonBindingAdapter {
         animate: Boolean?,
         statusBarColorUpdate: Boolean?
     ) {
-        val shouldAnimate = animate ?: false;
-        val imageUrl = IMAGE_POKEMON_PREFIX + id + IMAGE_POKEMON_SUFFIX;
+        val shouldAnimate = animate ?: false
+        val imageUrl = IMAGE_POKEMON_PREFIX + id + IMAGE_POKEMON_SUFFIX
         var requestBuilder = Glide.with(imageView)
             .load(imageUrl)
             .addListener(object : RequestListener<Drawable> {

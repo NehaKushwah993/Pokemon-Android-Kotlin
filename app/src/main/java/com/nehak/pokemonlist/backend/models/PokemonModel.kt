@@ -31,11 +31,9 @@ data class PokemonModel(
         parcel.readString().toString(),
         parcel.readString(),
         parcel.readInt()
-    ) {
-    }
-
+    )
     override fun equals(other: Any?): Boolean {
-        if (other == null || this::class.java != other::class.java) return false;
+        if (other == null || this::class.java != other::class.java) return false
         val that: PokemonModel = other as PokemonModel
         return Objects.equals(name, that.name)
     }

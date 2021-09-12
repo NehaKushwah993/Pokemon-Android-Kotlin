@@ -13,11 +13,5 @@ class LocalLogs {
             }
         }
 
-        fun debug(tag: String, s: String) {
-            if (BuildConfig.DEBUG) {
-                print("$tag - $s")
-            }
-        }
-
     }
 }

@@ -10,7 +10,6 @@ import com.nehak.pokemonlist.util.MockUtil
 import com.nehak.pokemonlist.util.MockUtil.mockPokemonByName
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.last
-import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert
 import org.junit.Before
@@ -36,8 +35,8 @@ class PokemonSearchViewModelTest {
     @Test
     fun `test fetchPokemonSearch with 5 items list available only in local , not remote`() {
         runBlocking {
-            val limit = 5;
-            val search = MockUtil.mockPokemon().name;
+            val limit = 5
+            val search = MockUtil.mockPokemon().name
             val mockData = MockUtil.mockPokemonList(limit)
             `when`(pokemonService.fetchPokemonByName(search))
                 .thenReturn(ApiResult.error("Error message"))
@@ -48,7 +47,7 @@ class PokemonSearchViewModelTest {
                 onStart = {},
                 onComplete = {},
                 onError = {}
-            ).first();
+            ).first()
 
             Assert.assertNotNull("fetchedDataFlow = ", fetchedDataFlow)
             Assert.assertEquals(fetchedDataFlow, mockData)
@@ -60,7 +59,7 @@ class PokemonSearchViewModelTest {
     @Test
     fun `test fetchPokemonSearch with 1 pokemon available only in remote , not local`() {
         runBlocking {
-            val searchString = MockUtil.mockPokemon().name;
+            val searchString = MockUtil.mockPokemon().name
             val mockData = MockUtil.mockPokemonList(1)
             val empty = MockUtil.mockPokemonList(0)
             `when`(pokemonService.fetchPokemonByName(searchString))
@@ -72,7 +71,7 @@ class PokemonSearchViewModelTest {
                 onStart = {},
                 onComplete = {},
                 onError = {}
-            ).last();
+            ).last()
 
             Assert.assertNotNull("fetchedDataFlow = ", fetchedDataFlow)
             Assert.assertEquals(fetchedDataFlow, mockData)
@@ -84,11 +83,11 @@ class PokemonSearchViewModelTest {
     @Test
     fun `test fetchPokemonSearch with 1 pokemon available only in remote , and 5 in local`() {
         runBlocking {
-            val searchString = "pokemon";
+            val searchString = "pokemon"
             val mockDataLocal = MockUtil.mockPokemonList(5)
 
-            val mockDataRemote = ArrayList<PokemonModel>();
-            mockDataRemote.add(mockPokemonByName(searchString));
+            val mockDataRemote = ArrayList<PokemonModel>()
+            mockDataRemote.add(mockPokemonByName(searchString))
 
             `when`(pokemonService.fetchPokemonByName(searchString))
                 .thenReturn(ApiResult.success(mockDataRemote[0]))
@@ -99,7 +98,7 @@ class PokemonSearchViewModelTest {
                 onStart = {},
                 onComplete = {},
                 onError = {}
-            ).last();
+            ).last()
 
             Assert.assertNotNull("fetchedDataFlow = ", fetchedDataFlow)
             Assert.assertEquals(6, fetchedDataFlow.size)
@@ -123,7 +122,7 @@ class PokemonSearchViewModelTest {
                 onStart = {},
                 onComplete = {},
                 onError = {}
-            ).last();
+            ).last()
 
             Assert.assertNotNull("fetchedDataFlow = ", fetchedDataFlow)
             Assert.assertEquals(0, fetchedDataFlow.size)

@@ -1,15 +1,14 @@
 package com.nehak.pokemonlist.ui.pokemonList
 
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.ViewAssertion
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import com.nehak.pokemonlist.R
-import com.nehak.pokemonlist.backend.models.PokemonModel
 import com.nehak.pokemonlist.util.MockUtilAndroidTest.mockPokemonList
+import org.hamcrest.Matchers.not
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -28,7 +27,7 @@ class PokemonListActivityTest {
     @get:Rule
     var activityRule: ActivityScenarioRule<PokemonListActivity> =
         ActivityScenarioRule(PokemonListActivity::class.java)
-    lateinit var activity: PokemonListActivity;
+    private lateinit var activity: PokemonListActivity
 
     @Before
     fun init() {
@@ -36,16 +35,6 @@ class PokemonListActivityTest {
             activity = it
         }
     }
-
-    private fun getViewAssertion(visibility: Visibility): ViewAssertion? {
-        return matches(withEffectiveVisibility(visibility))
-    }
-
-    fun isGone() = getViewAssertion(Visibility.GONE)
-
-    fun isVisible() = getViewAssertion(Visibility.VISIBLE)
-
-    fun isInvisible() = getViewAssertion(Visibility.INVISIBLE)
 
     @Test
     fun isPokemonRecyclerViewVisible() {
@@ -62,12 +51,12 @@ class PokemonListActivityTest {
     fun checkCenterErrorViewVisibility() {
         activity.viewModel.setErrorMessage("Error")
         activity.viewModel.clearPokemonList()
-        isVisible()
+        onView(withId(R.id.layout_error)).check(matches(isDisplayed()))
 
         activity.viewModel.setPokemonList(ArrayList())
-        isVisible()
+        onView(withId(R.id.layout_error)).check(matches(isDisplayed()))
 
         activity.viewModel.setPokemonList(mockPokemonList(1))
-        isGone()
+        onView(withId(R.id.layout_error)).check(matches(not(isDisplayed())))
     }
 }

@@ -29,7 +29,7 @@ class PokemonListViewModel @Inject constructor(
 
     private val pageSize = PAGE_SIZE
     val paginationThreshold = pageSize - 4
-    var currentPageNumber: Int = 0
+    private var currentPageNumber: Int = 0
 
     // To show loading bar
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
@@ -49,10 +49,10 @@ class PokemonListViewModel @Inject constructor(
         get() = _pokemonList
 
     init {
-        fetchPokemons()
+        fetchPokemonList()
     }
 
-    private fun fetchPokemons() {
+    private fun fetchPokemonList() {
         viewModelScope.launch {
             pokemonRepository.fetchPokemonList(
                 pageNumber = currentPageNumber,
@@ -68,27 +68,27 @@ class PokemonListViewModel @Inject constructor(
                     _errorMessage.value = it
                 }
             ).collect {
-                _pokemonList.emit(it);
+                _pokemonList.emit(it)
             }
         }
     }
 
     /**
-     * Refetch data from server
+     * Fetch data from server
      */
     fun reload() {
-        fetchPokemons();
+        fetchPokemonList()
     }
 
     /**
-     * Refetch data from server after deleting them from DB
+     * Fetch data from server after deleting them from DB
      */
     fun refresh() {
         viewModelScope.launch(Dispatchers.IO) {
             pokemonRepository.clear().also {
                 viewModelScope.launch(Dispatchers.Main) {
                     resetVariables()
-                    fetchPokemons();
+                    fetchPokemonList()
                 }
             }
         }
@@ -101,7 +101,7 @@ class PokemonListViewModel @Inject constructor(
 
     fun fetchMorePokemon() {
         ++currentPageNumber
-        fetchPokemons()
+        fetchPokemonList()
     }
 
 
@@ -118,7 +118,7 @@ class PokemonListViewModel @Inject constructor(
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     fun clearPokemonList() {
         viewModelScope.launch {
-            _pokemonList.emit(null);
+            _pokemonList.emit(null)
         }
     }
 
@@ -131,7 +131,7 @@ class PokemonListViewModel @Inject constructor(
         if (_pokemonList.value != null && _pokemonList.value!!.isNotEmpty()) {
             return _pokemonList.value!!.last().hasNextPageUrl && _pokemonList.value?.size!! < MAX_LIST_SIZE
         }
-        return false;
+        return false
     }
 
 }

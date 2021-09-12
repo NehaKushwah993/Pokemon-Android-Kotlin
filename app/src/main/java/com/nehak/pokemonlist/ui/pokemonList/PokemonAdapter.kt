@@ -10,7 +10,7 @@ import com.nehak.pokemonlist.utils.diffUtil.DiffCallBackPokemonModel
 import com.nehak.pokemonlist.utils.interfaces.OnPokemonClickListener
 import kotlin.collections.ArrayList
 
-class PokemonAdapter() : RecyclerView.Adapter<PokemonAdapter.PokemonViewHolder>() {
+class PokemonAdapter : RecyclerView.Adapter<PokemonAdapter.PokemonViewHolder>() {
 
     val pokemonList: ArrayList<PokemonModel> = ArrayList()
     var onPokemonClickListener: OnPokemonClickListener? = null
@@ -24,18 +24,10 @@ class PokemonAdapter() : RecyclerView.Adapter<PokemonAdapter.PokemonViewHolder>(
         diffResult.dispatchUpdatesTo(this)
     }
 
-    fun clear() {
-        val diffCallBackPokemonModel =
-            DiffCallBackPokemonModel(this.pokemonList, null)
-        val diffResult = DiffUtil.calculateDiff(diffCallBackPokemonModel)
-        pokemonList.clear()
-        diffResult.dispatchUpdatesTo(this)
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PokemonViewHolder {
         val binding =
-            AdapterRowPokemonBinding.inflate(LayoutInflater.from(parent.context), parent, false);
-        return PokemonViewHolder(binding);
+            AdapterRowPokemonBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return PokemonViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: PokemonViewHolder, position: Int) {

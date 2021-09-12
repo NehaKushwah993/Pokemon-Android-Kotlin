@@ -7,7 +7,7 @@ import java.util.*
 /**
  * Created by Neha Kushwah on 8/9/21.
  */
-class DiffCallBackPokemonModel(val oldList: List<PokemonModel>?, val newList: List<PokemonModel>?) :
+class DiffCallBackPokemonModel(private val oldList: List<PokemonModel>?, private val newList: List<PokemonModel>?) :
     DiffUtil.Callback() {
 
     override fun getOldListSize(): Int {

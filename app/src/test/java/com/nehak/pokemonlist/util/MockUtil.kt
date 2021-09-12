@@ -19,11 +19,11 @@ object MockUtil {
     )
 
     fun mockPokemonList(size: Int): ArrayList<PokemonModel> {
-        var mockModels = ArrayList<PokemonModel>()
+        val mockModels = ArrayList<PokemonModel>()
         for (i in 1..size) {
-            mockModels.add(mockPokemon());
+            mockModels.add(mockPokemon())
         }
-        return mockModels;
+        return mockModels
     }
 
     fun mockPokemonDetail() = PokemonDetails(

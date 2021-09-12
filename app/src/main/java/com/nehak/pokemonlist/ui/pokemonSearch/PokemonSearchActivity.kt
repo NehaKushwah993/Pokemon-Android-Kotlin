@@ -41,20 +41,20 @@ class PokemonSearchActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewBinding = ActivityPokemonSearchBinding.inflate(LayoutInflater.from(this));
-        viewBinding.lifecycleOwner = this;
+        viewBinding = ActivityPokemonSearchBinding.inflate(LayoutInflater.from(this))
+        viewBinding.lifecycleOwner = this
         setContentView(viewBinding.root)
 
         initViewModel()
         initAdapter()
-        addObservers();
+        addObservers()
         initListeners()
 
     }
 
     private fun initViewModel() {
         viewModel =
-            ViewModelProvider(this).get(PokemonSearchViewModel::class.java);
+            ViewModelProvider(this).get(PokemonSearchViewModel::class.java)
     }
 
     private fun initAdapter() {
@@ -65,7 +65,7 @@ class PokemonSearchActivity : AppCompatActivity() {
                 val intent = Intent(this@PokemonSearchActivity, PokemonDetailsActivity::class.java)
                 val bundle = Bundle()
                 bundle.putParcelable(EXTRA_POKEMON, pokemonModel)
-                intent.putExtras(bundle);
+                intent.putExtras(bundle)
 
                 val options = ActivityOptions
                     .makeSceneTransitionAnimation(

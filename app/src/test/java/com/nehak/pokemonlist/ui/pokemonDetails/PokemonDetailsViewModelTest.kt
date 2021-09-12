@@ -3,19 +3,15 @@ package com.nehak.pokemonlist.ui.pokemonDetails
 import com.nehak.pokemonlist.backend.dataSource.PokemonRemoteDataSource
 import com.nehak.pokemonlist.backend.database.PokemonDao
 import com.nehak.pokemonlist.backend.network.PokemonService
-import com.nehak.pokemonlist.backend.other.ApiResult
 import com.nehak.pokemonlist.backend.repository.PokemonRepository
 import com.nehak.pokemonlist.util.MockUtil
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.mock
-import kotlin.time.DurationUnit
-import kotlin.time.toDuration
 
 /**
  * Created by Neha Kushwah on 8/9/21.
@@ -43,7 +39,7 @@ class PokemonDetailsViewModelTest {
                 onStart = { },
                 onComplete = { },
                 onError = { }
-            ).first();
+            ).first()
 
             Assert.assertNotNull("fetchedDataFlow = ", fetchedDataFlow)
             Assert.assertEquals(pokemonDao.getPokemonDetails(name_ = mockData.name), fetchedDataFlow)

@@ -37,18 +37,18 @@ class PokemonListActivity : AppCompatActivity() {
     lateinit var viewBinding: ActivityPokemonListBinding
 
     @VisibleForTesting
-    lateinit var viewModel: PokemonListViewModel;
+    lateinit var viewModel: PokemonListViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewBinding = ActivityPokemonListBinding.inflate(LayoutInflater.from(this));
-        viewBinding.lifecycleOwner = this;
+        viewBinding = ActivityPokemonListBinding.inflate(LayoutInflater.from(this))
+        viewBinding.lifecycleOwner = this
         setContentView(viewBinding.root)
 
         initViewModel()
         initAdapter()
         initPullToRefresh()
-        addObservers();
+        addObservers()
         addPagination()
         addClickListeners()
 
@@ -71,7 +71,7 @@ class PokemonListActivity : AppCompatActivity() {
                 val intent = Intent(this@PokemonListActivity, PokemonDetailsActivity::class.java)
                 val bundle = Bundle()
                 bundle.putParcelable(EXTRA_POKEMON, pokemonModel)
-                intent.putExtras(bundle);
+                intent.putExtras(bundle)
 
                 val options = ActivityOptions
                     .makeSceneTransitionAnimation(
@@ -86,7 +86,7 @@ class PokemonListActivity : AppCompatActivity() {
 
     private fun initViewModel() {
         viewModel =
-            ViewModelProvider(this).get(PokemonListViewModel::class.java);
+            ViewModelProvider(this).get(PokemonListViewModel::class.java)
     }
 
     private fun initPullToRefresh() {

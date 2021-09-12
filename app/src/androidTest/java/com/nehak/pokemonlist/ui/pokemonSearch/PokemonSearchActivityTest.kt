@@ -1,9 +1,9 @@
 package com.nehak.pokemonlist.ui.pokemonSearch
 
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.ViewAssertion
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers.*
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
@@ -27,7 +27,7 @@ class PokemonSearchActivityTest {
     @get:Rule
     var activityRule: ActivityScenarioRule<PokemonSearchActivity> =
         ActivityScenarioRule(PokemonSearchActivity::class.java)
-    lateinit var activity: PokemonSearchActivity;
+    lateinit var activity: PokemonSearchActivity
 
     @Before
     fun init() {
@@ -35,16 +35,6 @@ class PokemonSearchActivityTest {
             activity = it
         }
     }
-
-    private fun getViewAssertion(visibility: Visibility): ViewAssertion? {
-        return matches(withEffectiveVisibility(visibility))
-    }
-
-    fun isGone() = getViewAssertion(Visibility.GONE)
-
-    fun isVisible() = getViewAssertion(Visibility.VISIBLE)
-
-    fun isInvisible() = getViewAssertion(Visibility.INVISIBLE)
 
     @Test
     fun isPokemonRecyclerViewVisible() {

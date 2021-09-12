@@ -5,19 +5,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.nehak.pokemonlist.utils.LocalLogs
 
-abstract class PaginationListener : RecyclerView.OnScrollListener {
-    private var threshold: Int = 10;
-    private val layoutManager: RecyclerView.LayoutManager
-
-    constructor(layoutManager: LinearLayoutManager, pageSize: Int) {
-        this.layoutManager = layoutManager
-        this.threshold = threshold
-    }
-
-    constructor(layoutManager: GridLayoutManager, pageSize: Int) {
-        this.layoutManager = layoutManager
-        this.threshold = threshold
-    }
+abstract class PaginationListener(layoutManager: GridLayoutManager, private var threshold: Int) :
+    RecyclerView.OnScrollListener() {
+    private val layoutManager: RecyclerView.LayoutManager = layoutManager
 
     override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
         super.onScrolled(recyclerView, dx, dy)

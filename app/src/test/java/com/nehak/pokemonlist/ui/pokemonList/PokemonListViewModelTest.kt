@@ -33,7 +33,7 @@ class PokemonListViewModelTest {
     @Test
     fun `test fetchPokemonList with 5 elements`() {
         runBlocking {
-            val limit = 5;
+            val limit = 5
             val mockData = MockUtil.mockPokemonList(limit)
             `when`(pokemonDao.getPokemonList()).thenReturn(mockData)
             `when`(pokemonDao.getPokemonListForPage(0)).thenReturn(mockData)
@@ -44,7 +44,7 @@ class PokemonListViewModelTest {
                 onStart = {},
                 onComplete = {},
                 onError = {}
-            ).first();
+            ).first()
 
             Assert.assertNotNull("fetchedDataFlow = ", fetchedDataFlow)
             Assert.assertEquals(fetchedDataFlow, MockUtil.mockPokemonList(limit))
@@ -55,7 +55,7 @@ class PokemonListViewModelTest {
     @Test
     fun `test fetchPokemonList with 0 elements in db and service`() {
         runBlocking {
-            val limit = 10;
+            val limit = 10
             val mockData = MockUtil.mockPokemonList(0)
             `when`(pokemonDao.getPokemonList()).thenReturn(mockData)
             `when`(pokemonDao.getPokemonListForPage(0)).thenReturn(mockData)

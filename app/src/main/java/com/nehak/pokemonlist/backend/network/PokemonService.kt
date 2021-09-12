@@ -22,7 +22,7 @@ class PokemonService @Inject constructor(@ApplicationContext var appContext: Con
         offset: Int,
         limit: Int
     ): ApiResult<PokemonListResponse> {
-        val url = "$API_POKEMON?limit=$limit&offset=$offset";
+        val url = "$API_POKEMON?limit=$limit&offset=$offset"
 
         return suspendCancellableCoroutine { continuation ->
             val queue = Volley.newRequestQueue(appContext)
@@ -32,10 +32,10 @@ class PokemonService @Inject constructor(@ApplicationContext var appContext: Con
                 PokemonListResponse::class.java,
                 null,
                 { response ->
-                    continuation.resumeWith(Result.success(ApiResult.success(response)));
+                    continuation.resumeWith(Result.success(ApiResult.success(response)))
                 },
                 {
-                    continuation.resumeWith(Result.success(ApiResult.error("Error")));
+                    continuation.resumeWith(Result.success(ApiResult.error("Error")))
                 })
             queue.add(myReq)
         }
@@ -50,10 +50,10 @@ class PokemonService @Inject constructor(@ApplicationContext var appContext: Con
                 PokemonDetails::class.java,
                 null,
                 { response ->
-                    continuation.resumeWith(Result.success(ApiResult.success(response)));
+                    continuation.resumeWith(Result.success(ApiResult.success(response)))
                 },
                 {
-                    continuation.resumeWith(Result.success(ApiResult.error("Error")));
+                    continuation.resumeWith(Result.success(ApiResult.error("Error")))
                 })
             queue.add(myReq)
         }
@@ -68,10 +68,10 @@ class PokemonService @Inject constructor(@ApplicationContext var appContext: Con
                 PokemonModel::class.java,
                 null,
                 { response ->
-                    continuation.resumeWith(Result.success(ApiResult.success(response)));
+                    continuation.resumeWith(Result.success(ApiResult.success(response)))
                 },
                 {
-                    continuation.resumeWith(Result.success(ApiResult.error("Error")));
+                    continuation.resumeWith(Result.success(ApiResult.error("Error")))
                 })
             queue.add(myReq)
         }

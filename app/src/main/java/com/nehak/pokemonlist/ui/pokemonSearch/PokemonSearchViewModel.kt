@@ -3,17 +3,13 @@ package com.nehak.pokemonlist.ui.pokemonSearch
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.nehak.pokemonlist.backend.models.PokemonModel
 import com.nehak.pokemonlist.backend.repository.PokemonRepository
-import com.nehak.pokemonlist.utils.MAX_LIST_SIZE
-import com.nehak.pokemonlist.utils.PAGE_SIZE
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.channels.ConflatedBroadcastChannel
-import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.flatMapLatest
 import javax.inject.Inject
 
 /**
@@ -64,14 +60,6 @@ class PokemonSearchViewModel @Inject constructor(
 
     fun isSearchQueryBlank(): Boolean {
         return searchString.value.isNullOrBlank()
-    }
-
-    fun research() {
-        viewModelScope.launch {
-            val oldValue = searchString.value
-            searchString.emit("");
-            searchString.emit(oldValue)
-        }
     }
 
 }

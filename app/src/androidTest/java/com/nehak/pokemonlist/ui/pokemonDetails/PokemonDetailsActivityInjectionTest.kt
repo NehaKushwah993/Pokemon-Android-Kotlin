@@ -27,7 +27,7 @@ class PokemonDetailsActivityInjectionTest {
         val intent = Intent(ApplicationProvider.getApplicationContext(), PokemonDetailsActivity::class.java)
         val bundle = Bundle()
         bundle.putParcelable(EXTRA_POKEMON, MockUtilAndroidTest.mockPokemon())
-        intent.putExtras(bundle);
+        intent.putExtras(bundle)
         ActivityScenario.launch<PokemonDetailsActivity>(intent).use {
             it.moveToState(Lifecycle.State.CREATED)
             it.onActivity { activity ->

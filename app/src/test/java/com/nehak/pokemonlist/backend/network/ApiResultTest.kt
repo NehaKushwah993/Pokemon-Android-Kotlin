@@ -15,7 +15,7 @@ class ApiResultTest {
 
     @Test
     fun exception() {
-        val apiResponse = ApiResult.error<String>("error");
+        val apiResponse = ApiResult.error<String>("error")
         MatcherAssert.assertThat(apiResponse.message, CoreMatchers.`is`("error"))
     }
 

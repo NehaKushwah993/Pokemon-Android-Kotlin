@@ -61,7 +61,7 @@ class PokemonDetailsViewModel @AssistedInject constructor(
                     _errorMessage.value = it
                 }
             ).collect {
-                _pokemonDetail.emit(it);
+                _pokemonDetail.emit(it)
             }
         }
     }

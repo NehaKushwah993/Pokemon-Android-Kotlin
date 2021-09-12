@@ -5,12 +5,10 @@ import android.os.Bundle
 import androidx.lifecycle.Lifecycle
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.ViewAssertion
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
-import com.nehak.pokemonlist.R
 import com.nehak.pokemonlist.ui.MyActivityScenarioTestRule
 import com.nehak.pokemonlist.util.MockUtilAndroidTest
 import com.nehak.pokemonlist.utils.EXTRA_POKEMON
@@ -32,14 +30,14 @@ class PokemonDetailsActivityTest {
     @get:Rule
     var activityRule: MyActivityScenarioTestRule<PokemonDetailsActivity> =
         MyActivityScenarioTestRule()
-    lateinit var activity: PokemonDetailsActivity
+    private lateinit var activity: PokemonDetailsActivity
 
     @Before
     fun init() {
         val intent = Intent(ApplicationProvider.getApplicationContext(), PokemonDetailsActivity::class.java)
         val bundle = Bundle()
         bundle.putParcelable(EXTRA_POKEMON, MockUtilAndroidTest.mockPokemon())
-        intent.putExtras(bundle);
+        intent.putExtras(bundle)
         activityRule.launchActivity(intent)
         activityRule.scenario?.moveToState(Lifecycle.State.RESUMED)
         activityRule.scenario?.onActivity {
@@ -47,16 +45,6 @@ class PokemonDetailsActivityTest {
         }
         Thread.sleep(1000)
     }
-
-    private fun getViewAssertion(visibility: Visibility): ViewAssertion? {
-        return matches(withEffectiveVisibility(visibility))
-    }
-
-    fun isGone() = getViewAssertion(Visibility.GONE)
-
-    fun isVisible() = getViewAssertion(Visibility.VISIBLE)
-
-    fun isInvisible() = getViewAssertion(Visibility.INVISIBLE)
 
     @Test
     fun testPokemonDetailsPage() {

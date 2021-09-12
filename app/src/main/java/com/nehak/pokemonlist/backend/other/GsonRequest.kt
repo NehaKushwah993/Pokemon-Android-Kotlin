@@ -10,10 +10,9 @@ import kotlin.Throws
 class GsonRequest<T>(
     method: Int,
     url: String?, private val clazz: Class<T>, private val headers: Map<String, String>?,
-    listener: Response.Listener<T>, errorListener: Response.ErrorListener?
+    private val listener: Response.Listener<T>, errorListener: Response.ErrorListener?
 ) : Request<T>(method, url, errorListener) {
     private val gson: Gson = Gson()
-    private val listener: Response.Listener<T> = listener
 
     @Throws(AuthFailureError::class)
     override fun getHeaders(): Map<String, String> {
