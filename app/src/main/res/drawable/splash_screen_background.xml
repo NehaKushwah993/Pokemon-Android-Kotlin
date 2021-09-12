@@ -3,8 +3,7 @@
     android:opacity="opaque">
 
     <item>
-        <shape xmlns:android="http://schemas.android.com/apk/res/android"
-            android:shape="rectangle">
+        <shape android:shape="rectangle">
             <gradient
                 android:centerX="50%"
                 android:centerY="50%"
@@ -15,9 +14,6 @@
         </shape>
     </item>
 
-    <item
-        android:width="@dimen/splash_screen_icon_width_height"
-        android:height="@dimen/splash_screen_icon_width_height"
-        android:drawable="@drawable/pokeball_app_icon"
-        android:gravity="center" />
+    <item android:drawable="@drawable/splash_screen"></item>
+
 </layer-list>

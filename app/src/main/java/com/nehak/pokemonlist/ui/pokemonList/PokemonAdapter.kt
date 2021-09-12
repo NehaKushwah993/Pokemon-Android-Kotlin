@@ -8,7 +8,6 @@ import com.nehak.pokemonlist.backend.models.PokemonModel
 import com.nehak.pokemonlist.databinding.AdapterRowPokemonBinding
 import com.nehak.pokemonlist.utils.diffUtil.DiffCallBackPokemonModel
 import com.nehak.pokemonlist.utils.interfaces.OnPokemonClickListener
-import kotlin.collections.ArrayList
 
 class PokemonAdapter : RecyclerView.Adapter<PokemonAdapter.PokemonViewHolder>() {
 
@@ -31,12 +30,17 @@ class PokemonAdapter : RecyclerView.Adapter<PokemonAdapter.PokemonViewHolder>() 
     }
 
     override fun onBindViewHolder(holder: PokemonViewHolder, position: Int) {
+        val pokemonModel = getItem(position)
         holder.binding.apply {
-            pokemon = getItem(position)
+            pokemon = pokemonModel
             executePendingBindings()
-        }
-        holder.binding.root.setOnClickListener {
-            onPokemonClickListener?.onPokemonClick(position, pokemonList[position], holder.binding.ivPokemon)
+            root.setOnClickListener {
+                onPokemonClickListener?.onPokemonClick(
+                    position,
+                    pokemonModel,
+                    holder.binding.ivPokemon
+                )
+            }
         }
     }
 
