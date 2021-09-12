@@ -12,6 +12,10 @@
             type="boolean" />
 
         <variable
+            name="showCenterError"
+            type="boolean" />
+
+        <variable
             name="pokemonAdapter"
             type="com.nehak.pokemonlist.ui.pokemonList.PokemonAdapter" />
 
@@ -40,7 +44,7 @@
                 layout="@layout/layout_error"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:visibility="@{!isLoading &amp;&amp; (pokemonAdapter!=null &amp;&amp; pokemonAdapter.itemCount==0) ? View.VISIBLE : View.GONE}"
+                android:visibility="@{ showCenterError ? View.VISIBLE : View.GONE}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

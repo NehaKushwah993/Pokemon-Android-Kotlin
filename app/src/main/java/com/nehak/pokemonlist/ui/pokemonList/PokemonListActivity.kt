@@ -31,6 +31,7 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class PokemonListActivity : AppCompatActivity() {
 
+    private lateinit var adapter: PokemonAdapter
     private var mErrorSnackBar: Snackbar? = null
 
     @VisibleForTesting
@@ -63,7 +64,7 @@ class PokemonListActivity : AppCompatActivity() {
     }
 
     private fun initAdapter() {
-        val adapter = PokemonAdapter()
+        adapter = PokemonAdapter()
         viewBinding.pokemonAdapter = adapter
         adapter.onPokemonClickListener = object : OnPokemonClickListener {
             override fun onPokemonClick(pos: Int, pokemonModel: PokemonModel, commonView: View) {
@@ -100,6 +101,7 @@ class PokemonListActivity : AppCompatActivity() {
         lifecycleScope.launch {
             viewModel.pokemonList.collect { pokemonList ->
                 viewBinding.pokemonAdapter?.setPokemonList(pokemonList)
+                setCenterError()
             }
         }
 
@@ -109,6 +111,7 @@ class PokemonListActivity : AppCompatActivity() {
                     showErrorWithRetry(errorMessage)
                     LocalLogs.debug("Received errorMessage $errorMessage")
                 }
+                setCenterError()
             }
         }
 
@@ -121,8 +124,15 @@ class PokemonListActivity : AppCompatActivity() {
                 } else {
                     mErrorSnackBar?.dismiss()
                 }
+
+                setCenterError()
             }
         }
+    }
+
+    private fun setCenterError() {
+        viewBinding.showCenterError = !viewModel.isLoading.value && adapter.itemCount == 0
+        viewBinding.executePendingBindings()
     }
 
     /**

@@ -48,7 +48,7 @@ class PokemonListViewModelTest {
 
             Assert.assertNotNull("fetchedDataFlow = ", fetchedDataFlow)
             Assert.assertEquals(fetchedDataFlow, MockUtil.mockPokemonList(limit))
-            Assert.assertEquals(fetchedDataFlow[0].name, "Pokemon Name")
+            Assert.assertEquals(fetchedDataFlow[0].name, MockUtil.mockPokemon().name)
         }
     }
 

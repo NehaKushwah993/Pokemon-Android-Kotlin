@@ -111,6 +111,11 @@ class PokemonListViewModel @Inject constructor(
     }
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    fun setLoading(isLoading: Boolean) {
+        _isLoading.value = isLoading
+    }
+
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     fun setPokemonList(pokemonList: List<PokemonModel>?) {
         _pokemonList.value = pokemonList
     }

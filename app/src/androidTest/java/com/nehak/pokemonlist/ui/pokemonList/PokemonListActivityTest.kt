@@ -34,6 +34,7 @@ class PokemonListActivityTest {
         activityRule.scenario.onActivity {
             activity = it
         }
+        Thread.sleep(1000)
     }
 
     @Test
@@ -49,14 +50,10 @@ class PokemonListActivityTest {
 
     @Test
     fun checkCenterErrorViewVisibility() {
-        activity.viewModel.setErrorMessage("Error")
-        activity.viewModel.clearPokemonList()
+        activity.viewBinding.showCenterError = true
         onView(withId(R.id.layout_error)).check(matches(isDisplayed()))
 
-        activity.viewModel.setPokemonList(ArrayList())
-        onView(withId(R.id.layout_error)).check(matches(isDisplayed()))
-
-        activity.viewModel.setPokemonList(mockPokemonList(1))
+        activity.viewBinding.showCenterError = false
         onView(withId(R.id.layout_error)).check(matches(not(isDisplayed())))
     }
 }

@@ -8,8 +8,14 @@ import com.nehak.pokemonlist.backend.models.pokemonDetails.PokemonDetails
  */
 object MockUtilAndroidTest {
 
+
     fun mockPokemon() = PokemonModel(
-        name = "Pokemon Name",
+        name = "pikachu",
+        url = "https://pokeapi.co/api/v2/pokemon/45/"
+    )
+
+    fun mockPokemonByName(name: String) = PokemonModel(
+        name = name,
         url = "https://pokeapi.co/api/v2/pokemon/45/"
     )
 
@@ -22,10 +28,11 @@ object MockUtilAndroidTest {
     }
 
     fun mockPokemonDetail() = PokemonDetails(
-        id = 111,
-        name = "Pokemon Name",
-        height = 233,
-        weight = 12,
-        baseExperience = 14
+        id = 25,
+        name = "pikachu",
+        height = 4,
+        weight = 60,
+        baseExperience = 112
     )
+
 }

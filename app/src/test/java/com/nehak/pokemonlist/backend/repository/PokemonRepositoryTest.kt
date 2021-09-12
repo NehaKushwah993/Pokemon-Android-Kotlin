@@ -5,6 +5,7 @@ import com.nehak.pokemonlist.backend.database.PokemonDao
 import com.nehak.pokemonlist.backend.models.pokemonList.PokemonListResponse
 import com.nehak.pokemonlist.backend.network.PokemonService
 import com.nehak.pokemonlist.backend.other.ApiResult
+import com.nehak.pokemonlist.util.MockUtil
 import com.nehak.pokemonlist.util.MockUtil.mockPokemonList
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.toList
@@ -51,7 +52,7 @@ class PokemonRepositoryTest {
         ).first()
 
         val expectItem = pokemonList[0]
-        Assert.assertEquals(expectItem.name, "Pokemon Name")
+        Assert.assertEquals(expectItem.name,  MockUtil.mockPokemon().name)
         Assert.assertEquals(expectItem, mockPokemonList(1)[0])
     }
 
@@ -75,7 +76,7 @@ class PokemonRepositoryTest {
         ).first()
 
         val expectItem = pokemonList[0]
-        Assert.assertEquals(expectItem.name, "Pokemon Name")
+        Assert.assertEquals(expectItem.name,  MockUtil.mockPokemon().name)
         Assert.assertEquals(expectItem, mockPokemonList(1)[0])
     }
 
@@ -122,7 +123,7 @@ class PokemonRepositoryTest {
         ).first()
 
         val expectItem = pokemonList[0]
-        Assert.assertEquals(expectItem.name, "Pokemon Name")
+        Assert.assertEquals(expectItem.name,  MockUtil.mockPokemon().name)
         Assert.assertEquals(expectItem, mockPokemonList(1)[0])
     }
 

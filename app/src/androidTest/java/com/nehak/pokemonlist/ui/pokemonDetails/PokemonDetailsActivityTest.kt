@@ -12,6 +12,7 @@ import androidx.test.filters.LargeTest
 import com.nehak.pokemonlist.ui.MyActivityScenarioTestRule
 import com.nehak.pokemonlist.util.MockUtilAndroidTest
 import com.nehak.pokemonlist.utils.EXTRA_POKEMON
+import org.hamcrest.Matchers.containsString
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -60,16 +61,21 @@ class PokemonDetailsActivityTest {
 
     @Test
     fun checkDataSetOnViews() {
-        activity.viewModel.setPokemonDetail(MockUtilAndroidTest.mockPokemonDetail())
-        onView(withText(MockUtilAndroidTest.mockPokemon().name)).check(
+
+        val pokemon = MockUtilAndroidTest.mockPokemon()
+        val pokemonDetail = MockUtilAndroidTest.mockPokemonDetail()
+
+        activity.viewBinding.pokemon = pokemon
+        activity.viewBinding.pokemonDetail = pokemonDetail
+        onView(withText(pokemon.capitaliseName())).check(
             matches(
                 isDisplayed()
             )
         )
-        onView(withText(MockUtilAndroidTest.mockPokemonDetail().baseExperience.toString())).check(
+        onView(withText(containsString(pokemonDetail.baseExperience.toString()))).check(
             matches(isDisplayed())
         )
-        onView(withText(MockUtilAndroidTest.mockPokemonDetail().height.toString())).check(
+        onView(withText(containsString(pokemonDetail.height.toString()))).check(
             matches(isDisplayed())
         )
     }
