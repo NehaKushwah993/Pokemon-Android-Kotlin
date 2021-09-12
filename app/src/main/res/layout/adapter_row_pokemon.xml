@@ -78,6 +78,7 @@
                     android:layout_height="0dp"
                     android:contentDescription="@string/pokemon"
                     android:scrollX="-45dp"
+                    android:alpha="0.7"
                     android:scrollY="-45dp"
                     android:src="@drawable/ic_pokeball_black_and_white"
                     app:layout_constraintBottom_toBottomOf="parent"
