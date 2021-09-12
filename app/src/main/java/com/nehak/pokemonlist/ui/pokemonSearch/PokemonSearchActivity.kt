@@ -52,6 +52,11 @@ class PokemonSearchActivity : AppCompatActivity() {
 
     }
 
+    private fun initViewModel() {
+        viewModel =
+            ViewModelProvider(this).get(PokemonSearchViewModel::class.java);
+    }
+
     private fun initAdapter() {
         adapter = PokemonAdapter()
         viewBinding.pokemonAdapter = adapter
@@ -73,25 +78,6 @@ class PokemonSearchActivity : AppCompatActivity() {
         }
     }
 
-    private fun initListeners() {
-        viewBinding.search.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
-            androidx.appcompat.widget.SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                return true
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                newText?.let { viewModel.setSearchQuery(it) }
-                return true
-            }
-        }
-        )
-    }
-
-    private fun initViewModel() {
-        viewModel =
-            ViewModelProvider(this).get(PokemonSearchViewModel::class.java);
-    }
 
     private fun addObservers() {
 
@@ -119,6 +105,22 @@ class PokemonSearchActivity : AppCompatActivity() {
             }
         }
     }
+
+    private fun initListeners() {
+        viewBinding.search.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
+            androidx.appcompat.widget.SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                newText?.let { viewModel.setSearchQuery(it) }
+                return true
+            }
+        }
+        )
+    }
+
 
     private fun checkError() {
         viewBinding.foundNoData =

@@ -26,7 +26,7 @@
         android:id="@+id/rootLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/background_color_card"
+        android:background="@color/card_background_color_default"
         tools:context=".ui.pokemonDetails.PokemonDetailsActivity">
 
         <ImageButton
@@ -221,6 +221,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintVertical_bias="0.75"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

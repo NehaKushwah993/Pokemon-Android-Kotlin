@@ -1,9 +1,9 @@
 package com.nehak.pokemonlist.utils.recyclerViewPagination
 
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.GridLayoutManager
-import com.nehak.pokemonlist.utils.recyclerViewPagination.PaginationListener
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.nehak.pokemonlist.utils.LocalLogs
 
 abstract class PaginationListener : RecyclerView.OnScrollListener {
     private var threshold: Int = 10;
@@ -30,6 +30,7 @@ abstract class PaginationListener : RecyclerView.OnScrollListener {
         } else if (layoutManager is LinearLayoutManager) {
             firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
         }
+        LocalLogs.debug("isLoading = " + isLoading() + " - isLastPage = " + isLastPage())
         if (!isLoading() && !isLastPage()) {
             if (visibleItemCount + firstVisibleItemPosition >= totalItemCount && firstVisibleItemPosition >= 0 && totalItemCount >= threshold) {
                 loadMoreItems()

@@ -1,20 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primary_color">#0C64B8</color>
-    <color name="secondary_color">#56ADFF</color>
-    <color name="tertiary_color">#98C4DE</color>
-    <color name="accent_color">#18C9FF</color>
-    <color name="transparent">#0018C9FF</color>
+    <color name="primary_color">#b71c1c</color>
+    <color name="primary_color_light">#f05545</color>
+    <color name="primary_color_dark">#7f0000</color>
 
-    <color name="background_color">#FFFFFFFF</color>
-    <color name="background_color_other">#FFFFFFFF</color>
-    <color name="background_color_card">#56ADFF</color>
+    <color name="secondary_color">#b71c1c</color>
+    <color name="secondary_color_light">#f05545</color>
+    <color name="secondary_color_dark">#7f0000</color>
+
+    <color name="accent_color">#C5C5C5</color>
+
+    <color name="background_color">#FFFFFF</color>
+    <color name="background_color_gradient">#FFFFFF</color>
+    <color name="background_color_gradient_other">#FFFFFF</color>
+    <color name="card_background_color_default">#45ACF0</color>
 
     <color name="text_color_primary">#FFFFFF</color>
-    <color name="text_color_secondary">#0154A1</color>
-    <color name="text_color_invert">#003A70</color>
+    <color name="text_color_secondary">#b71c1c</color>
+    <color name="text_color_invert">#7f0000</color>
     <color name="text_color_hint">#DAFFFFFF</color>
+
+    <color name="pokeball_red">#b71c1c</color>
+    <color name="pokeball_red_light">#f05545</color>
+    <color name="pokeball_red_dark">#7f0000</color>
+
+    <color name="transparent">#00FFFFFF</color>
 
     <color name="pokeball_border_light">#FFFFFF</color>
     <color name="pokeball_border_dark">#E3DCDC</color>
+    <color name="pokeball_bg">#90F4F4F4</color>
+
+    <color name="splash_background_color_gradient">#FFFFFF</color>
+    <color name="splash_background_color_gradient_other">#C5C5C5</color>
 </resources>

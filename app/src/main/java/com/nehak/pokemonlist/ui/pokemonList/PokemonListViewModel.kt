@@ -28,7 +28,7 @@ class PokemonListViewModel @Inject constructor(
 ) : ViewModel(), LifecycleObserver {
 
     private val pageSize = PAGE_SIZE
-    val paginationThreshold = pageSize
+    val paginationThreshold = pageSize - 4
     var currentPageNumber: Int = 0
 
     // To show loading bar
