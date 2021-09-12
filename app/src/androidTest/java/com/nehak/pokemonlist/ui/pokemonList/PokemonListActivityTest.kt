@@ -48,12 +48,4 @@ class PokemonListActivityTest {
         onView(withText("Error")).check(matches(isDisplayed()))
     }
 
-    @Test
-    fun checkCenterErrorViewVisibility() {
-        activity.viewBinding.showCenterError = true
-        onView(withId(R.id.layout_error)).check(matches(isDisplayed()))
-
-        activity.viewBinding.showCenterError = false
-        onView(withId(R.id.layout_error)).check(matches(not(isDisplayed())))
-    }
 }
