@@ -23,114 +23,194 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/rootLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/drawable_gradient"
+        android:background="@color/background_color_card"
         tools:context=".ui.pokemonDetails.PokemonDetailsActivity">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/tool_bar"
+        <ImageButton
+            android:id="@+id/ib_back"
+            android:layout_width="@dimen/icon_width_height_large"
+            android:layout_height="@dimen/icon_width_height_large"
+            android:background="@color/transparent"
+            android:contentDescription="back"
+            android:padding="@dimen/spacing_full"
+            android:src="@drawable/ic_arrow_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_number"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:theme="@style/ToolBarStyle"
+            android:maxLines="1"
+            android:text="@{`#`+pokemonDetail.id}"
+            android:textColor="@color/text_color_primary"
+            android:textSize="@dimen/text_header_very_large"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/ib_back"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ib_back"
+            app:layout_constraintTop_toTopOf="@+id/ib_back"
+            tools:text="Pokemon\nName" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_circle"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:alpha="0.4"
+            android:background="@color/background_color"
+            app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:navigationIcon="?attr/homeAsUpIndicator"
-            app:title="@{pokemonDetail.name}" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_number"
+            app:layout_constraintWidth_percent="0.8"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.CardView.Circle" />
+
+        <ImageView
+            android:id="@+id/iv_pokemon_bg"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:alpha="0.1"
+            android:contentDescription="@string/pokemon"
+            android:scrollX="-90dp"
+            android:scrollY="-90dp"
+            android:src="@drawable/ic_pokeball"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintVertical_bias="1"
+            app:layout_constraintWidth_percent="0.6" />
 
         <ImageView
             android:id="@+id/iv_pokemon"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="@dimen/spacing_double_filler"
             android:contentDescription="@string/pokemon"
+            android:transitionName="@string/shared_element_pokemon_image"
             app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintTop_toTopOf="@id/guideline_for_pokemon"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tool_bar"
+            app:layout_constraintWidth_percent=".8"
+            bind:paletteView="@{rootLayout}"
             bind:loadImageByPokemonId="@{pokemon.id}"
-            tools:src="@mipmap/ic_launcher" />
+            bind:statusBarColorUpdate="@{true}"
+            tools:src="@drawable/pokemon_dummy" />
+
 
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_half"
-            android:maxLines="1"
-            android:text="@{pokemonDetail.name}"
+            android:text="@{pokemon.capitaliseName()}"
             android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
             android:textColor="@color/text_color_primary"
-            android:textSize="@dimen/text_medium"
+            android:textSize="@dimen/text_header_banner"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iv_pokemon"
+            app:layout_constraintVertical_chainStyle="packed"
             tools:text="Pokemon\nName" />
 
         <TextView
-            android:id="@+id/tv_number"
+            android:id="@+id/tv_base_experience_heading"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_half"
+            android:layout_marginTop="@dimen/spacing_full"
             android:maxLines="1"
-            android:text="@{`£`+pokemonDetail.id}"
-            android:textAlignment="center"
+            android:text="@string/base_experience"
+            android:textAlignment="textEnd"
+            android:textSize="@dimen/text_subtitle"
+            app:layout_constraintBottom_toTopOf="@+id/tv_height_heading"
             android:textColor="@color/text_color_primary"
-            android:textSize="@dimen/text_header_very_large"
+            app:layout_constraintEnd_toStartOf="@+id/tv_base_experience"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tool_bar"
-            tools:text="Pokemon\nName" />
-
-        <TextView
-            android:id="@+id/tv_other"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_half"
-            android:maxLines="1"
-            android:text="@{pokemonDetail.baseExperience+``}"
-            android:textAlignment="center"
-            android:textColor="@color/text_color_primary"
-            android:textSize="@dimen/text_medium"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_title"
-            tools:text="Pokemon\nName" />
+            app:layout_constraintVertical_bias=".1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
 
         <TextView
-            android:id="@+id/tv_other2"
+            android:id="@+id/tv_base_experience"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_half"
+            android:maxLines="1"
+            android:text="@{pokemonDetail.baseExperience + ` Exp. points`}"
+            android:textColor="@color/text_color_primary"
+            android:textSize="@dimen/text_subtitle"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_base_experience_heading"
+            app:layout_constraintTop_toTopOf="@+id/tv_base_experience_heading"
+            tools:text="112 Exp. points" />
+
+        <TextView
+            android:id="@+id/tv_height_heading"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_half"
             android:maxLines="1"
-            android:text="@{pokemonDetail.height+``}"
-            android:textAlignment="center"
+            android:text="Height :"
             android:textColor="@color/text_color_primary"
-            android:textSize="@dimen/text_medium"
+            android:textAlignment="textEnd"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:textSize="@dimen/text_subtitle"
+            app:layout_constraintBottom_toTopOf="@+id/tv_weight_heading"
+            app:layout_constraintEnd_toStartOf="@+id/tv_height"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_other"
-            tools:text="Pokemon\nName" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_base_experience_heading" />
 
         <TextView
-            android:id="@+id/tv_other3"
+            android:id="@+id/tv_height"
+            android:layout_width="0dp"
+            android:layout_marginStart="@dimen/spacing_half"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:text="@{pokemonDetail.heightAsDouble / 10.0+` m`}"
+            android:textColor="@color/text_color_primary"
+            android:textSize="@dimen/text_subtitle"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_height_heading"
+            app:layout_constraintTop_toTopOf="@+id/tv_height_heading"
+            tools:text="0.4 m" />
+
+        <TextView
+            android:id="@+id/tv_weight_heading"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_half"
             android:maxLines="1"
-            android:text="@{pokemonDetail.weight+``}"
-            android:textAlignment="center"
+            android:text="Weight :"
+            android:textAlignment="textEnd"
             android:textColor="@color/text_color_primary"
-            android:textSize="@dimen/text_medium"
+            android:textSize="@dimen/text_subtitle"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/tv_weight"
+            app:layout_constraintTop_toBottomOf="@+id/tv_height_heading" />
+
+        <TextView
+            android:id="@+id/tv_weight"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_half"
+            android:maxLines="1"
+            android:text="@{+pokemonDetail.weightAsDouble/ 10.0+` kg`}"
+            android:textColor="@color/text_color_primary"
+            android:textSize="@dimen/text_subtitle"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_other2"
-            tools:text="Pokemon\nName" />
+            app:layout_constraintStart_toEndOf="@+id/tv_weight_heading"
+            app:layout_constraintTop_toTopOf="@+id/tv_weight_heading"
+            tools:text="6.0 kg" />
 
         <ProgressBar
             android:id="@+id/progress_bar_center"
@@ -143,6 +223,13 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_for_pokemon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.12" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

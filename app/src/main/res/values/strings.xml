@@ -6,5 +6,7 @@
     <string name="no_pokemon_and_retry_error">Oops! No Pokemon!\n<br />Keep calm, light a fire and click on <b>Retry.</b></string>
     <string name="no_pokemon_and_search_error">Oops! No Pokemon found!\n<br />Keep calm, light a fire and try search again..</string>
     <string name="search">Search</string>
-    <string name="search_hint">Search Pokemon by Name</string>
+    <string name="search_hint">Search Pokemon by name (ie. Pikachu)</string>
+    <string name="shared_element_pokemon_image">pokemonImage</string>
+    <string name="base_experience">Base Experience :</string>
 </resources>

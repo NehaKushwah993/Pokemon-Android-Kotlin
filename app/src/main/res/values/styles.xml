@@ -16,4 +16,22 @@
         <item name="android:tint">@color/text_color_primary</item>
     </style>
 
+    <style name="ShapeAppearanceOverlay.CardView.Bottom" parent="">
+        <item name="cornerFamilyBottomLeft">rounded</item>
+        <item name="cornerFamilyBottomRight">rounded</item>
+        <item name="cornerSizeBottomLeft">20%</item>
+        <item name="cornerSizeBottomRight">20%</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.CardView.Top" parent="">
+        <item name="cornerFamilyBottomLeft">rounded</item>
+        <item name="cornerFamilyBottomRight">rounded</item>
+        <item name="cornerSizeTopLeft">15%</item>
+        <item name="cornerSizeTopRight">15%</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.CardView.Circle" parent="">
+        <item name="cornerSize">50%</item>
+    </style>
+
 </resources>

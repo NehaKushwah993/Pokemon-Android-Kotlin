@@ -77,8 +77,8 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:contentDescription="@string/pokemon"
-                    android:scrollX="-30dp"
-                    android:scrollY="-30dp"
+                    android:scrollX="-45dp"
+                    android:scrollY="-45dp"
                     android:src="@drawable/ic_pokeball_black_and_white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintDimensionRatio="1:1"
@@ -89,14 +89,16 @@
                     android:id="@+id/iv_pokemon"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
+                    android:transitionName="@string/shared_element_pokemon_image"
                     android:contentDescription="@string/pokemon"
                     app:layout_constraintBottom_toBottomOf="@id/iv_pokemon_bg"
                     app:layout_constraintEnd_toEndOf="@id/iv_pokemon_bg"
                     app:layout_constraintStart_toStartOf="@id/iv_pokemon_bg"
                     app:layout_constraintTop_toTopOf="@id/iv_pokemon_bg"
                     app:loadImageByPokemonId="@{pokemon.id}"
-                    app:paletteCard="@{ivMainBg}"
-                    tools:src="@drawable/ic_pokeball" />
+                    app:animate="@{true}"
+                    app:paletteView="@{ivMainBg}"
+                    tools:src="@drawable/pokemon_dummy" />
 
                 <TextView
                     android:id="@+id/tv_title"

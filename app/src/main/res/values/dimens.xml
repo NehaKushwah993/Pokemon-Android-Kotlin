@@ -48,5 +48,8 @@
     <dimen name="corner_radius_large">12dp</dimen>
     <dimen name="corner_radius_xlarge">16dp</dimen>
 
-    <dimen name="elevation_default">3dp</dimen>
+    <dimen name="elevation_none">0dp</dimen>
+    <dimen name="elevation_default">4dp</dimen>
+    <dimen name="elevation_medium">7dp</dimen>
+    <dimen name="elevation_large">10dp</dimen>
 </resources>

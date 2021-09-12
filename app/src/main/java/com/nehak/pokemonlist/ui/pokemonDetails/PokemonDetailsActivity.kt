@@ -1,22 +1,19 @@
 package com.nehak.pokemonlist.ui.pokemonDetails
 
-import android.graphics.Color
 import android.os.Bundle
 import android.os.Parcelable
 import android.view.LayoutInflater
 import androidx.activity.viewModels
-import androidx.annotation.ColorInt
 import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.snackbar.Snackbar
 import com.nehak.pokemonlist.R
-import dagger.hilt.android.AndroidEntryPoint
 import com.nehak.pokemonlist.backend.models.PokemonModel
 import com.nehak.pokemonlist.databinding.ActivityPokemonDetailsBinding
 import com.nehak.pokemonlist.utils.EXTRA_POKEMON
 import com.nehak.pokemonlist.utils.LocalLogs
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -52,11 +49,14 @@ class PokemonDetailsActivity : AppCompatActivity() {
         viewBinding.lifecycleOwner = this;
         setContentView(viewBinding.root)
         viewBinding.pokemon = viewModel.pokemonModel
-//        viewBinding.toolBar.navigationIcon?.mutate()?.let {
-//            it.setTint(Color.WHITE)
-//            viewBinding.toolBar.navigationIcon = it
-//        }
         addObservers()
+        addExitClickListener()
+    }
+
+    private fun addExitClickListener() {
+        viewBinding.ibBack.setOnClickListener {
+            supportFinishAfterTransition();
+        }
     }
 
 

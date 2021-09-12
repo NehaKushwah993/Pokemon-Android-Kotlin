@@ -1,20 +1,15 @@
 package com.nehak.pokemonlist.ui.pokemonSearch
 
+import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.Menu
+import android.view.View
 import android.widget.SearchView
 import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.GridLayoutManager
-import com.nehak.pokemonlist.databinding.ActivityPokemonListBinding
-import com.nehak.pokemonlist.utils.LocalLogs
-import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 import com.google.android.material.snackbar.Snackbar
 import com.nehak.pokemonlist.R
 import com.nehak.pokemonlist.backend.models.PokemonModel
@@ -22,8 +17,11 @@ import com.nehak.pokemonlist.databinding.ActivityPokemonSearchBinding
 import com.nehak.pokemonlist.ui.pokemonDetails.PokemonDetailsActivity
 import com.nehak.pokemonlist.ui.pokemonList.PokemonAdapter
 import com.nehak.pokemonlist.utils.EXTRA_POKEMON
+import com.nehak.pokemonlist.utils.LocalLogs
 import com.nehak.pokemonlist.utils.interfaces.OnPokemonClickListener
-import com.nehak.pokemonlist.utils.recyclerViewPagination.PaginationListener
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 
 /**
@@ -58,12 +56,19 @@ class PokemonSearchActivity : AppCompatActivity() {
         adapter = PokemonAdapter()
         viewBinding.pokemonAdapter = adapter
         adapter.onPokemonClickListener = object : OnPokemonClickListener {
-            override fun onPokemonClick(pos: Int, pokemonModel: PokemonModel) {
+            override fun onPokemonClick(pos: Int, pokemonModel: PokemonModel, commonView: View) {
                 val intent = Intent(this@PokemonSearchActivity, PokemonDetailsActivity::class.java)
                 val bundle = Bundle()
                 bundle.putParcelable(EXTRA_POKEMON, pokemonModel)
                 intent.putExtras(bundle);
-                startActivity(intent)
+
+                val options = ActivityOptions
+                    .makeSceneTransitionAnimation(
+                        this@PokemonSearchActivity,
+                        commonView,
+                        getString(R.string.shared_element_pokemon_image)
+                    )
+                startActivity(intent, options.toBundle())
             }
         }
     }

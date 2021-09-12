@@ -17,14 +17,6 @@
 
     </data>
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_refresh_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -34,8 +26,10 @@
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/tool_bar"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="?actionBarSize"
                 android:theme="@style/ToolBarStyle"
+                android:layout_marginBottom="@dimen/elevation_default"
+                android:elevation="@dimen/elevation_default"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -53,22 +47,28 @@
                 app:layout_constraintTop_toBottomOf="@+id/tool_bar"
                 app:message="@{@string/no_pokemon_and_retry_error}" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_pokemon_list"
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/swipe_refresh_layout"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:clipToPadding="false"
-                android:paddingBottom="@dimen/spacing_full_filler"
-                android:adapter="@{pokemonAdapter}"
-                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tool_bar"
-                app:spanCount="2"
-                tools:itemCount="10"
-                tools:listitem="@layout/adapter_row_pokemon" />
+                app:layout_constraintTop_toBottomOf="@+id/tool_bar">
 
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_pokemon_list"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:adapter="@{pokemonAdapter}"
+                    android:clipToPadding="false"
+                    android:paddingBottom="@dimen/spacing_triple_filler"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:spanCount="2"
+                    tools:itemCount="10"
+                    tools:listitem="@layout/adapter_row_pokemon" />
+
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
             <ProgressBar
                 android:id="@+id/progress_bar_center"
                 android:layout_width="@dimen/progress_bar_width_height"
@@ -106,5 +106,4 @@
                 app:tint="@color/text_color_primary" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </layout>

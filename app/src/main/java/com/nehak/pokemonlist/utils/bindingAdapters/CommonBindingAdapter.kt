@@ -4,10 +4,11 @@ import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.view.View
+import android.view.WindowManager
 import android.widget.ImageView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.BindingAdapter
 import androidx.palette.graphics.Palette
-import androidx.palette.graphics.Palette.PaletteAsyncListener
 import com.bumptech.glide.GenericTransitionOptions
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -24,10 +25,23 @@ import com.nehak.pokemonlist.backend.network.IMAGE_POKEMON_SUFFIX
 object CommonBindingAdapter {
 
     @JvmStatic
-    @BindingAdapter(value = ["loadImageByPokemonId", "paletteCard"], requireAll = false)
-    fun loadImageByPokemonId(imageView: ImageView, id: Int, view: View?) {
+    @BindingAdapter(
+        value = ["loadImageByPokemonId",
+            "paletteView",
+            "animate",
+            "statusBarColorUpdate"],
+        requireAll = false
+    )
+    fun loadImageByPokemonId(
+        imageView: ImageView,
+        id: Int,
+        paletteView: View?,
+        animate: Boolean?,
+        statusBarColorUpdate: Boolean?
+    ) {
+        val shouldAnimate = animate ?: false;
         val imageUrl = IMAGE_POKEMON_PREFIX + id + IMAGE_POKEMON_SUFFIX;
-        Glide.with(imageView)
+        var requestBuilder = Glide.with(imageView)
             .load(imageUrl)
             .addListener(object : RequestListener<Drawable> {
                 override fun onLoadFailed(
@@ -46,21 +60,33 @@ object CommonBindingAdapter {
                     dataSource: DataSource?,
                     isFirstResource: Boolean
                 ): Boolean {
-                    if (view != null) {
+                    if (paletteView != null) {
                         val bitmap = (resource as BitmapDrawable).bitmap
-                        Palette.from(bitmap).generate(PaletteAsyncListener {
-                            // Use generated instance
+                        Palette.from(bitmap).generate {
                             if (it != null) {
-                                view.setBackgroundColor(it.getLightVibrantColor(Color.TRANSPARENT))
+                                paletteView.setBackgroundColor(
+                                    it.getMutedColor(Color.TRANSPARENT)
+                                )
+                                if (statusBarColorUpdate != null && statusBarColorUpdate) {
+                                    val context = paletteView.context
+                                    if (context is AppCompatActivity) {
+                                        context.window.apply {
+                                            addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+                                            statusBarColor = it.getDarkMutedColor(Color.TRANSPARENT)
+                                        }
+                                    }
+                                }
                             }
-                        })
+                        }
                     }
                     return false
                 }
-
             })
-            .transition(GenericTransitionOptions.with(R.anim.zoom_in))
-            .diskCacheStrategy(DiskCacheStrategy.ALL)
+        if (shouldAnimate) {
+            requestBuilder =
+                requestBuilder.transition(GenericTransitionOptions.with(R.anim.zoom_in))
+        }
+        requestBuilder.diskCacheStrategy(DiskCacheStrategy.ALL)
             .signature(ObjectKey(id))
             .into(imageView)
     }

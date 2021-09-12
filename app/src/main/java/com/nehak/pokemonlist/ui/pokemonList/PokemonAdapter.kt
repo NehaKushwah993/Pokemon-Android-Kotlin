@@ -44,7 +44,7 @@ class PokemonAdapter() : RecyclerView.Adapter<PokemonAdapter.PokemonViewHolder>(
             executePendingBindings()
         }
         holder.binding.root.setOnClickListener {
-            onPokemonClickListener?.onPokemonClick(position, pokemonList[position])
+            onPokemonClickListener?.onPokemonClick(position, pokemonList[position], holder.binding.ivPokemon)
         }
     }
 

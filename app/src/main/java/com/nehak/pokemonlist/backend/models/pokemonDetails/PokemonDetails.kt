@@ -23,4 +23,12 @@ data class PokemonDetails(
 
     @Expose
     var weight: Long = 0
-)
+) {
+    fun heightAsDouble(): Double {
+        return height.toDouble()
+    }
+
+    fun weightAsDouble(): Double {
+        return weight.toDouble()
+    }
+}

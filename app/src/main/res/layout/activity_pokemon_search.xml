@@ -25,15 +25,16 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/drawable_gradient"
         tools:context=".ui.pokemonList.PokemonListActivity">
 
         <androidx.appcompat.widget.SearchView
             android:id="@+id/search"
             android:layout_width="0dp"
+            android:layout_height="?actionBarSize"
+            android:layout_marginBottom="@dimen/elevation_default"
+            android:elevation="@dimen/elevation_default"
             style="@style/ToolBar.SearchView"
             android:theme="@style/ToolBar.SearchView"
-            android:layout_height="wrap_content"
             app:iconifiedByDefault="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

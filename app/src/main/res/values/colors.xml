@@ -4,15 +4,16 @@
     <color name="secondary_color">#56ADFF</color>
     <color name="tertiary_color">#98C4DE</color>
     <color name="accent_color">#18C9FF</color>
+    <color name="transparent">#0018C9FF</color>
 
     <color name="background_color">#FFFFFFFF</color>
-    <color name="background_color_other">#B3DAFF</color>
+    <color name="background_color_other">#FFFFFFFF</color>
     <color name="background_color_card">#56ADFF</color>
 
     <color name="text_color_primary">#FFFFFF</color>
     <color name="text_color_secondary">#0154A1</color>
     <color name="text_color_invert">#003A70</color>
-    <color name="text_color_hint">#A6BED5</color>
+    <color name="text_color_hint">#DAFFFFFF</color>
 
     <color name="pokeball_border_light">#FFFFFF</color>
     <color name="pokeball_border_dark">#E3DCDC</color>

@@ -4,6 +4,7 @@
         <item name="colorPrimary">@color/secondary_color</item>
         <item name="colorPrimaryVariant">@color/primary_color</item>
         <item name="colorOnPrimary">@color/text_color_primary</item>
+        <item name="colorControlNormal">@color/text_color_primary</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/accent_color</item>
         <item name="colorSecondaryVariant">@color/accent_color</item>
