@@ -15,6 +15,6 @@
         </shape>
     </item>
 
-    <item android:drawable="@drawable/splash_screen"></item>
+    <item android:drawable="@drawable/splash_screen" />
 
 </layer-list>

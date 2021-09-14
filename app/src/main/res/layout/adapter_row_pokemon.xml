@@ -39,7 +39,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    app:layout_constraintGuide_percent=".08" />
+                    app:layout_constraintGuide_percent="0.05" />
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guideline_right"
@@ -104,20 +104,21 @@
                 <TextView
                     android:id="@+id/tv_title"
                     android:layout_width="0dp"
+                    android:textSize="@dimen/text_medium"
+                    app:layout_constraintHorizontal_bias="0"
                     android:layout_height="wrap_content"
                     android:includeFontPadding="false"
                     android:maxLines="1"
                     android:text="@{pokemon.capitaliseName}"
-                    android:textColor="@color/text_color_primary"
-                    android:textSize="@dimen/text_normal"
-                    android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintWidth_percent=".5"
                     app:layout_constraintStart_toStartOf="@id/guideline_left"
                     app:layout_constraintTop_toTopOf="@id/guideline_top"
                     tools:text="Pokemon\nName" />
 
                 <TextView
                     android:id="@+id/tv_id"
+                    style="@style/text_view_banner"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_half"
@@ -125,9 +126,6 @@
                     android:includeFontPadding="false"
                     android:maxLines="1"
                     android:text="@{`#`+pokemon.id}"
-                    android:textColor="@color/text_color_primary"
-                    android:textSize="@dimen/text_header_very_large"
-                    android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@id/guideline_bottom"
                     app:layout_constraintEnd_toStartOf="@+id/iv_pokemon"
                     app:layout_constraintStart_toStartOf="@id/guideline_left"

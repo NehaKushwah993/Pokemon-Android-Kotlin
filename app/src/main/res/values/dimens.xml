@@ -52,4 +52,10 @@
     <dimen name="elevation_default">4dp</dimen>
     <dimen name="elevation_medium">7dp</dimen>
     <dimen name="elevation_large">10dp</dimen>
+
+    <item format="float" name="error_image_width_height_percentage" type="dimen">.5</item>
+    <item format="integer" name="span_count" type="dimen">2</item>
+
+    <dimen name="text_spacing">0.1</dimen>
+
 </resources>

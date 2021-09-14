@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item format="integer" name="span_count" type="dimen">3</item>
+</resources>

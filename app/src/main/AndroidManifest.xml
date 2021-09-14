@@ -24,7 +24,7 @@
         </activity>
         <activity
             android:name=".ui.pokemonDetails.PokemonDetailsActivity"
-            android:theme="@style/Theme.Activity" />
+            android:theme="@style/Theme.NoBackgroundActivity" />
         <activity
             android:name=".ui.pokemonSearch.PokemonSearchActivity"
             android:theme="@style/Theme.Activity" />
