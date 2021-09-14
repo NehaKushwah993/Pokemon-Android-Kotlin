@@ -42,13 +42,4 @@ class PokemonSearchActivityTest {
         onView(withId(R.id.layout_no_pokemon_found)).check(matches(not(isDisplayed())))
     }
 
-    @Test
-    fun checkCenterErrorViewVisibility() {
-        activity.viewBinding.foundNoData = true
-        onView(withId(R.id.layout_no_pokemon_found)).check(matches(isDisplayed()))
-        activity.viewBinding.foundNoData = false
-        onView(withId(R.id.layout_no_pokemon_found)).check(matches(not(isDisplayed())))
-
-    }
-
 }

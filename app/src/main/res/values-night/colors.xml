@@ -1,4 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="primary_color">#b71c1c</color>
+    <color name="primary_color_light">#f05545</color>
+    <color name="primary_color_dark">#7f0000</color>
 
+    <color name="secondary_color">#b71c1c</color>
+    <color name="secondary_color_light">#f05545</color>
+    <color name="secondary_color_dark">#7f0000</color>
+
+    <color name="accent_color">#434343</color>
+
+    <color name="background_color">#000000</color>
+    <color name="background_color_gradient">#000000</color>
+    <color name="background_color_gradient_other">#000000</color>
+    <color name="card_background_color_default">#245778</color>
+
+    <color name="text_color_primary">#FFFFFF</color>
+    <color name="text_color_secondary">#b71c1c</color>
+    <color name="text_color_invert">#7f0000</color>
+    <color name="text_color_hint">#DAFFFFFF</color>
+
+    <color name="pokeball_red">#b71c1c</color>
+    <color name="pokeball_red_light">#f05545</color>
+    <color name="pokeball_red_dark">#7f0000</color>
+
+    <color name="transparent">#00FFFFFF</color>
+
+    <color name="pokeball_border_light">#000000</color>
+    <color name="pokeball_border_dark">#272626</color>
+    <color name="pokeball_bg">#90121212</color>
+
+    <color name="splash_background_color_gradient">#000000</color>
+    <color name="splash_background_color_gradient_other">#272727</color>
 </resources>
