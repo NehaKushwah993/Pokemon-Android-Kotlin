@@ -1,6 +1,6 @@
 # PokemonList
 
-**Features : **
+**Features :**
 
 - Displays list of Pokemon
 - Pokemon details page
