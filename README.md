@@ -24,3 +24,7 @@
 - GSON (JSON Parsing)
 - Glide (Image Loading)
 - For Testing : JUnit, Espresso, Mockito
+
+
+https://user-images.githubusercontent.com/19280756/133478445-0080f41c-cde9-40f3-9385-4221b77602a5.mp4
+
