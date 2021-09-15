@@ -25,6 +25,4 @@
 - Glide (Image Loading)
 - For Testing : JUnit, Espresso, Mockito
 
-
-https://user-images.githubusercontent.com/19280756/133478445-0080f41c-cde9-40f3-9385-4221b77602a5.mp4
-
+https://user-images.githubusercontent.com/19280756/133478726-2c0f3f61-4477-4e58-87fe-3d7b142393bb.mp4
