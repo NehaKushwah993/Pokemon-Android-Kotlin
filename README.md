@@ -7,6 +7,7 @@ Features :
 - Search pokeom from localDB and Remote Server
 - Pagination (Infinite scroll up to 300 Pokemon)
 
+
 TechStack used :
 
 - Kotlin
