@@ -57,8 +57,9 @@ class PokemonRepository @Inject constructor(
     }.onStart { onStart() }.onCompletion { onComplete() }.flowOn(Dispatchers.IO)
 
     fun clear(
-    ): Int {
-       return pokemonDao.deleteAll()
+    ) {
+        pokemonDao.deleteAllPokemonModel()
+        pokemonDao.deleteAllPokemonDetails()
     }
 
     @WorkerThread

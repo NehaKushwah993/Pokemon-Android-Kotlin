@@ -23,7 +23,10 @@ interface PokemonDao {
     suspend fun getPokemonList(): List<PokemonModel>
 
     @Query("DELETE FROM PokemonModel")
-    fun deleteAll(): Int
+    fun deleteAllPokemonModel(): Int
+
+    @Query("DELETE FROM PokemonDetails")
+    fun deleteAllPokemonDetails(): Int
 
     @Query("SELECT * FROM PokemonDetails WHERE name = :name_")
     suspend fun getPokemonDetails(name_: String): PokemonDetails?

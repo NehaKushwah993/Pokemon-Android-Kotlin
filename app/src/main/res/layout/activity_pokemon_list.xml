@@ -8,89 +8,103 @@
         <import type="android.view.View" />
 
         <variable
-            name="isLoading"
-            type="boolean" />
-
-        <variable
-            name="showCenterError"
-            type="boolean" />
+            name="viewModel"
+            type="com.nehak.pokemonlist.ui.pokemonList.PokemonListViewModel" />
 
         <variable
             name="pokemonAdapter"
             type="com.nehak.pokemonlist.ui.pokemonList.PokemonAdapter" />
 
+        <variable
+            name="onSwipeRefresh"
+            type="androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener" />
+
+        <variable
+            name="onError"
+            type="com.nehak.pokemonlist.utils.interfaces.OnError" />
+
+        <variable
+            name="searchClickListener"
+            type="android.view.View.OnClickListener" />
+
     </data>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:context=".ui.pokemonList.PokemonListActivity">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:errorMessage="@{viewModel.errorMessage}"
+        app:onError="@{onError}"
+        tools:context=".ui.pokemonList.PokemonListActivity">
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/tool_bar"
-                android:layout_width="0dp"
-                android:layout_height="?actionBarSize"
-                android:theme="@style/ToolBarStyle"
-                android:layout_marginBottom="@dimen/elevation_default"
-                android:elevation="@dimen/elevation_default"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:title="@string/app_name" />
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/tool_bar"
+            android:layout_width="0dp"
+            android:layout_height="?actionBarSize"
+            android:layout_marginBottom="@dimen/elevation_default"
+            android:elevation="@dimen/elevation_default"
+            android:theme="@style/ToolBarStyle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:title="@string/app_name" />
 
-            <include
-                android:id="@+id/layout_error"
-                layout="@layout/layout_error"
+        <include
+            android:id="@+id/layout_error"
+            layout="@layout/layout_error"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="@{ !viewModel.isLoading &amp;&amp; pokemonAdapter.itemCount == 0 ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tool_bar"
+            app:message="@{@string/no_pokemon_and_retry_error}" />
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh_layout"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tool_bar"
+            app:setOnSwipeViewListener="@{onSwipeRefresh}"
+            app:setRefreshing="@{viewModel.isLoading()}">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_pokemon_list"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:visibility="@{ showCenterError ? View.VISIBLE : View.GONE}"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tool_bar"
-                app:message="@{@string/no_pokemon_and_retry_error}" />
+                android:adapter="@{pokemonAdapter}"
+                android:clipToPadding="false"
+                android:paddingBottom="@dimen/spacing_triple_filler"
+                app:addPagination="@{viewModel}"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="@dimen/span_count"
+                tools:itemCount="10"
+                tools:listitem="@layout/adapter_row_pokemon" />
 
-            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-                android:id="@+id/swipe_refresh_layout"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tool_bar">
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_pokemon_list"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:adapter="@{pokemonAdapter}"
-                    android:clipToPadding="false"
-                    android:paddingBottom="@dimen/spacing_triple_filler"
-                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                    app:spanCount="@dimen/span_count"
-                    tools:itemCount="10"
-                    tools:listitem="@layout/adapter_row_pokemon" />
+        <ProgressBar
+            android:id="@+id/progress_bar_center"
+            android:layout_width="@dimen/progress_bar_width_height"
+            android:layout_height="50dp"
+            android:indeterminate="false"
+            android:visibility="@{viewModel.isLoading &amp;&amp; (pokemonAdapter==null || pokemonAdapter.itemCount==0)? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-            <ProgressBar
-                android:id="@+id/progress_bar_center"
-                android:layout_width="@dimen/progress_bar_width_height"
-                android:layout_height="50dp"
-                android:indeterminate="false"
-                android:visibility="@{isLoading &amp;&amp; (pokemonAdapter==null || pokemonAdapter.itemCount==0)? View.VISIBLE : View.GONE}"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ProgressBar
-                android:id="@+id/progress_bar_bottom"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:indeterminate="false"
-                android:visibility="@{isLoading &amp;&amp; (pokemonAdapter!=null &amp;&amp; pokemonAdapter.itemCount!=0)? View.VISIBLE : View.GONE}"
-                app:layout_constraintBottom_toBottomOf="parent"
+        <ProgressBar
+            android:id="@+id/progress_bar_bottom"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:indeterminate="false"
+            android:visibility="@{viewModel.isLoading &amp;&amp; (pokemonAdapter!=null &amp;&amp; pokemonAdapter.itemCount!=0)? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -105,6 +119,7 @@
                 android:contentDescription="@string/search"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                android:onClick="@{searchClickListener}"
                 app:srcCompat="?android:attr/actionModeWebSearchDrawable"
                 app:tint="@color/text_color_primary" />
 
