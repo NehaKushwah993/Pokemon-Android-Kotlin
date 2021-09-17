@@ -8,16 +8,16 @@
         <import type="android.view.View" />
 
         <variable
-            name="isLoading"
-            type="boolean" />
-
-        <variable
-            name="foundNoData"
-            type="boolean" />
-
-        <variable
-            name="pokemonAdapter"
+            name="pokemonListAdapter"
             type="com.nehak.pokemonlist.ui.pokemonList.PokemonAdapter" />
+
+        <variable
+            name="showCenterError"
+            type="boolean" />
+
+        <variable
+            name="pokemonSearchViewModel"
+            type="com.nehak.pokemonlist.ui.pokemonSearch.PokemonSearchViewModel" />
 
     </data>
 
@@ -30,6 +30,7 @@
         <androidx.appcompat.widget.SearchView
             android:id="@+id/search"
             android:layout_width="0dp"
+            app:setSearchListener="@{pokemonSearchViewModel}"
             android:layout_height="?actionBarSize"
             android:layout_marginBottom="@dimen/elevation_default"
             android:elevation="@dimen/elevation_default"
@@ -38,6 +39,7 @@
             app:iconifiedByDefault="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            tools:layout_height="50dp"
             app:layout_constraintTop_toTopOf="parent"
             app:queryHint="@string/search_hint" />
 
@@ -46,7 +48,7 @@
             layout="@layout/layout_error"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:visibility="@{foundNoData? View.VISIBLE : View.GONE}"
+            android:visibility="@{showCenterError? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -58,7 +60,7 @@
             android:id="@+id/rv_pokemon_list"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:adapter="@{pokemonAdapter}"
+            android:adapter="@{pokemonListAdapter}"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -73,7 +75,7 @@
             android:layout_width="@dimen/progress_bar_width_height"
             android:layout_height="50dp"
             android:indeterminate="false"
-            android:visibility="@{isLoading &amp;&amp; (pokemonAdapter==null || pokemonAdapter.itemCount==0)? View.VISIBLE : View.GONE}"
+            android:visibility="@{pokemonSearchViewModel.isLoading &amp;&amp; (pokemonListAdapter==null || pokemonListAdapter.itemCount==0)? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -85,7 +87,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:indeterminate="false"
-            android:visibility="@{isLoading &amp;&amp; (pokemonAdapter!=null &amp;&amp; pokemonAdapter.itemCount!=0)? View.VISIBLE : View.GONE}"
+            android:visibility="@{pokemonSearchViewModel.isLoading &amp;&amp; (pokemonListAdapter!=null &amp;&amp; pokemonListAdapter.itemCount!=0)? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"

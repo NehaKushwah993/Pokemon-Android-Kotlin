@@ -6,10 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.nehak.pokemonlist.backend.models.PokemonModel
 import com.nehak.pokemonlist.backend.repository.PokemonRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 /**
@@ -62,4 +59,7 @@ class PokemonSearchViewModel @Inject constructor(
         return searchString.value.isNullOrBlank()
     }
 
+    fun hasFinishedSearch(): Boolean {
+        return !isLoading.value && !isSearchQueryBlank()
+    }
 }

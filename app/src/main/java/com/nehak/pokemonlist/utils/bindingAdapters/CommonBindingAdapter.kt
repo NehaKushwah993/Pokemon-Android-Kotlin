@@ -29,10 +29,8 @@ object CommonBindingAdapter {
         onError: OnError?,
         errorMessage: String?,
     ) {
-        if (errorMessage != null) {
-            onError?.onError(errorMessage)
-            LocalLogs.debug("Received errorMessage $errorMessage")
-        }
+        onError?.onError(errorMessage)
+        LocalLogs.debug("Received errorMessage $errorMessage")
     }
 
 }

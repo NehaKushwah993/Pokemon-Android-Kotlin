@@ -54,7 +54,7 @@ class PokemonListActivity : AppCompatActivity() {
                 this@PokemonListActivity.viewModel.refresh()
             }
             onError = object : OnError {
-                override fun onError(errorMessage: String) {
+                override fun onError(errorMessage: String?) {
                     showErrorWithRetry(errorMessage)
                 }
             }
@@ -98,15 +98,17 @@ class PokemonListActivity : AppCompatActivity() {
      */
     @VisibleForTesting
     private fun showErrorWithRetry(msg: String?) {
-        val mErrorSnackBar = Snackbar.make(
-            viewBinding.root,
-            msg ?: getString(R.string.error_message),
-            Snackbar.LENGTH_INDEFINITE
-        )
-        mErrorSnackBar.setAction(getString(R.string.retry).uppercase()) {
-            mErrorSnackBar.dismiss()
-            viewModel.reload()
+        msg?.let {
+            val mErrorSnackBar = Snackbar.make(
+                viewBinding.root,
+                msg ?: getString(R.string.error_message),
+                Snackbar.LENGTH_INDEFINITE
+            )
+            mErrorSnackBar.setAction(getString(R.string.retry).uppercase()) {
+                mErrorSnackBar.dismiss()
+                viewModel.reload()
+            }
+            mErrorSnackBar.show()
         }
-        mErrorSnackBar.show()
     }
 }
