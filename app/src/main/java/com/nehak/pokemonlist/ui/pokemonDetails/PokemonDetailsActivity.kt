@@ -3,19 +3,18 @@ package com.nehak.pokemonlist.ui.pokemonDetails
 import android.os.Bundle
 import android.os.Parcelable
 import android.view.LayoutInflater
+import android.view.View
 import androidx.activity.viewModels
 import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
 import com.google.android.material.snackbar.Snackbar
 import com.nehak.pokemonlist.R
 import com.nehak.pokemonlist.backend.models.PokemonModel
 import com.nehak.pokemonlist.databinding.ActivityPokemonDetailsBinding
 import com.nehak.pokemonlist.utils.EXTRA_POKEMON
 import com.nehak.pokemonlist.utils.LocalLogs
+import com.nehak.pokemonlist.utils.interfaces.OnError
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
@@ -25,10 +24,11 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class PokemonDetailsActivity : AppCompatActivity() {
 
-    private var mErrorSnackBar: Snackbar? = null
-
     @Inject
     lateinit var viewModelFactory: PokemonDetailsViewModel.AssistedFactory
+
+    @VisibleForTesting
+    lateinit var viewBinding: ActivityPokemonDetailsBinding
 
     @VisibleForTesting
     val viewModel: PokemonDetailsViewModel by viewModels {
@@ -39,66 +39,45 @@ class PokemonDetailsActivity : AppCompatActivity() {
     }
 
 
-    @VisibleForTesting
-    lateinit var viewBinding: ActivityPokemonDetailsBinding
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         viewBinding = ActivityPokemonDetailsBinding.inflate(LayoutInflater.from(this))
-        viewBinding.lifecycleOwner = this
-        setContentView(viewBinding.root)
-        viewBinding.pokemon = viewModel.pokemonModel
-        addObservers()
-        addExitClickListener()
-    }
-
-    private fun addExitClickListener() {
-        viewBinding.ibBack.setOnClickListener {
-            supportFinishAfterTransition()
-        }
-    }
-
-
-    private fun addObservers() {
-        lifecycleScope.launch {
-            viewModel.errorMessage.collect { errorMessage ->
-                if (errorMessage != null) {
+        viewBinding.apply {
+            lifecycleOwner = this@PokemonDetailsActivity
+            pokemonDetailViewModel = this@PokemonDetailsActivity.viewModel
+            pokemon = viewModel.pokemonModel
+            onDetailsError = object : OnError {
+                override fun onError(errorMessage: String?) {
                     showErrorWithRetry(errorMessage)
                     LocalLogs.debug("Received errorMessage $errorMessage")
                 }
             }
-        }
-
-        lifecycleScope.launch {
-            viewModel.pokemonDetail.collect { pokemonDetail ->
-                viewBinding.pokemonDetail = pokemonDetail
+            onBackClickListener = View.OnClickListener {
+                supportFinishAfterTransition()
             }
         }
-
-        lifecycleScope.launch {
-            viewModel.isLoading.collect { isLoading ->
-                viewBinding.isLoading = isLoading
-            }
-        }
+        setContentView(viewBinding.root)
     }
 
     /**
      * Show snackBar with retry button
      */
     @VisibleForTesting
-    private fun showErrorWithRetry(msg: String?) {
-        mErrorSnackBar =
-            Snackbar.make(
-                viewBinding.root,
-                msg ?: getString(R.string.error_message),
-                Snackbar.LENGTH_INDEFINITE
-            )
-        mErrorSnackBar?.setAction(getString(R.string.retry).uppercase()) {
-            mErrorSnackBar?.dismiss()
-            viewModel.reload()
+    private fun showErrorWithRetry(errorMessage: String?) {
+        errorMessage?.let {
+            val mErrorSnackBar =
+                Snackbar.make(
+                    viewBinding.root,
+                    it,
+                    Snackbar.LENGTH_INDEFINITE
+                )
+            mErrorSnackBar.setAction(getString(R.string.retry).uppercase()) {
+                mErrorSnackBar.dismiss()
+                viewModel.reload()
+            }
+            mErrorSnackBar.show()
         }
-        mErrorSnackBar?.show()
     }
 
 

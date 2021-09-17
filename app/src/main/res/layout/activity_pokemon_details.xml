@@ -9,17 +9,16 @@
         <import type="android.view.View" />
 
         <variable
-            name="isLoading"
-            type="boolean" />
+            name="pokemonDetailViewModel"
+            type="com.nehak.pokemonlist.ui.pokemonDetails.PokemonDetailsViewModel" />
 
         <variable
-            name="pokemon"
-            type="com.nehak.pokemonlist.backend.models.PokemonModel" />
+            name="onBackClickListener"
+            type="android.view.View.OnClickListener" />
 
         <variable
-            name="pokemonDetail"
-            type="com.nehak.pokemonlist.backend.models.pokemonDetails.PokemonDetails" />
-
+            name="onDetailsError"
+            type="com.nehak.pokemonlist.utils.interfaces.OnError" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -27,6 +26,8 @@
         android:id="@+id/rootLayout"
         android:background="@color/card_background_color_default"
         android:layout_height="match_parent"
+        app:errorMessage="@{pokemonDetailViewModel.errorMessage}"
+        app:onError="@{onDetailsError}"
         tools:context=".ui.pokemonDetails.PokemonDetailsActivity">
 
         <ImageButton
@@ -34,8 +35,9 @@
             android:layout_width="@dimen/icon_width_height_large"
             android:layout_height="@dimen/icon_width_height_large"
             android:background="@color/transparent"
-            android:contentDescription="back"
+            android:contentDescription="Go Back"
             android:padding="@dimen/spacing_full"
+            android:onClick="@{onBackClickListener}"
             android:src="@drawable/ic_arrow_back"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -95,7 +97,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintWidth_percent=".8"
             bind:paletteView="@{rootLayout}"
-            bind:loadImageByPokemonId="@{pokemon.id}"
+            bind:loadImageByPokemonId="@{pokemonDetailViewModel.pokemonModel.id}"
             bind:statusBarColorUpdate="@{true}"
             tools:src="@drawable/pokemon_dummy" />
 
@@ -106,7 +108,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_half"
-            android:text="@{pokemon.capitaliseName()}"
+            android:text="@{pokemonDetailViewModel.pokemonModel.capitaliseName()}"
             android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -160,7 +162,7 @@
             android:layout_width="0dp"
             android:layout_marginStart="@dimen/spacing_half"
             android:layout_height="wrap_content"
-            android:text="@{pokemonDetail.heightAsDouble / 10.0+` m`}"
+            android:text="@{pokemonDetailViewModel.pokemonDetail.heightAsDouble / 10.0+` m`}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/tv_height_heading"
             app:layout_constraintTop_toTopOf="@+id/tv_height_heading"
@@ -185,7 +187,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/spacing_half"
-            android:text="@{+pokemonDetail.weightAsDouble/ 10.0+` kg`}"
+            android:text="@{pokemonDetailViewModel.pokemonDetail.weightAsDouble/ 10.0+` kg`}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/tv_weight_heading"
             app:layout_constraintTop_toTopOf="@+id/tv_weight_heading"
@@ -195,7 +197,7 @@
             android:id="@+id/progress_bar_center"
             android:layout_width="@dimen/progress_bar_width_height"
             android:layout_height="@dimen/progress_bar_width_height"
-            android:visibility="@{isLoading ? View.VISIBLE : View.GONE}"
+            android:visibility="@{pokemonDetailViewModel.isLoading ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"

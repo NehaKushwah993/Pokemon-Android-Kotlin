@@ -39,7 +39,7 @@ class PokemonDetailsViewModel @AssistedInject constructor(
     // List to show Pokemon's
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     private val _pokemonDetail: MutableStateFlow<PokemonDetails?> = MutableStateFlow(null)
-    val pokemonDetail: Flow<PokemonDetails?>
+    val pokemonDetail: StateFlow<PokemonDetails?>
         get() = _pokemonDetail
 
     init {
