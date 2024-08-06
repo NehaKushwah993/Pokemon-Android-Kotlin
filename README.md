@@ -6,7 +6,7 @@
 - Pokemon details page
 - Search pokeom from localDB and Remote Server
 - Pagination (Infinite scroll up to 300 Pokemon)
-
+- DarkTheme support
 
 **TechStack used :**
 
